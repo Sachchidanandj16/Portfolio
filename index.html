@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sachchidanand Jha | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      /* Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary-color: #3b82f6;
+        --accent-color: #ef4444;
+        --dark-color: #1e293b;
+        --light-color: #f8fafc;
+        --bg-color: #ffffff;
+        --text-color: #1e293b;
+        --card-bg: #f1f5f9;
+        --border-color: #cbd5e1;
+        --shadow-color: rgba(0, 0, 0, 0.05);
+        --header-bg: #0f172a;
+        --footer-bg:var(--header-bg);
+      }
+
+      [data-theme="dark"] {
+        --primary-color: #818cf8;
+        --primary-dark: #6366f1;
+        --secondary-color: #38bdf8;
+        --accent-color: #fb7185;
+        --dark-color: #f8fafc;
+        --light-color: #1e293b;
+        --bg-color: #0f172a;
+        --text-color: #f8fafc;
+        --card-bg: #1e293b;
+        --border-color: #334155;
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --header-bg: #818cf8;
+        --footer-bg:var(--header-bg);
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: all 0.4s ease;
+        line-height: 1.6;
+        overflow-y: auto;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .animate {
+        opacity: 0;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.6s forwards;
+      }
+
+      .slide-up {
+        animation: slideUp 0.8s forwards;
+      }
+
+      /* Header Styles */
+      header {
+        background: var(--header-bg);
+        color: white;
+        padding: 4rem 2rem;
+        text-align: center;
+        position: relative;
+        transition: background 0.4s ease;
+      }
+
+      /* SJ Logo Styles */
+      .logo {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+      }
+
+      .logo-sj {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #f1f5f9;
+        text-shadow: 
+          2px 2px 0 var(--primary-dark),
+          4px 4px 10px rgb(255, 255, 255);
+        transition: all 0.3s ease;
+        display: inline-block;
+        transform: translateZ(0);
+      }
+
+      .logo-sj:hover {
+        transform: 
+          rotate(-5deg) 
+          scale(1.1)
+          translateZ(10px);
+        text-shadow: 
+          3px 3px 0 var(--primary-dark),
+          6px 6px 15px rgba(0,0,0,0.3);
+      }
+
+      .profile {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        margin: 1rem auto;
+        border: 4px solid var(--primary-color);
+        object-fit: cover;
+        transition: all 0.3s ease;
+      }
+
+      .profile:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(233, 235, 234, 0.5);
+      }
+
+      .social-links {
+        margin-top: 1.5rem;
+      }
+
+      .download-btn {
+        color: white;
+        margin: 0 10px;
+        font-size: 0.5rem;
+        transition: transform 0.3s ease, color 0.3s ease;
+      }
+
+      .download-btn:hover {
+        color: var(--primary-color);
+        transform: translateY(-3px);
+      }
+
+      
+      .social-links a {
+        color: white;
+        margin: 0 10px;
+        font-size: 1.5rem;
+        transition: transform 0.3s ease, color 0.3s ease;
+      }
+
+      .social-links a:hover {
+        color: var(--primary-color);
+        transform: translateY(-3px);
+      }
+
+      /* Section Common Styles */
+      section {
+        padding: 4rem 2rem;
+        transition: background 0.4s ease;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--primary-color);
+        font-size: 2.5rem;
+        position: relative;
+        width: 100%;
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: var(--primary-color);
+        border-radius: 3px;
+      }
+
+      /* Skills Grid */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .skill-card, .project-card {
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px var(--shadow-color);
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        border: 1px solid var(--border-color);
+        transform-style: preserve-3d;
+        perspective: 1000px;
+        will-change: transform;
+      }
+
+      .skill-card:hover, .project-card:hover {
+        transform: 
+          translateY(-10px) 
+          rotateX(5deg) 
+          rotateY(5deg) 
+          translateZ(20px);
+        box-shadow: 
+          0 25px 40px var(--shadow-color),
+          0 0 50px rgba(0,0,0,0.1);
+      }
+
+      .skill-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        text-align: center;
+      }
+
+      .skill-card ul {
+        list-style-type: none;
+      }
+
+      .skill-card li {
+        margin-bottom: 0.5rem;
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .skill-card li::before {
+        content: '▹';
+        position: absolute;
+        left: 0;
+        color: var(--primary-color);
+      }
+
+      /* Project Cards */
+      .projects-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: 100vh;
+        overflow-y: auto; 
+      }
+
+      .project-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .project-card p {
+        color: var(--text-color);
+        opacity: 0.8;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .project-card ul {
+        margin-top: 1rem;
+      }
+
+      .project-card li {
+        margin-bottom: 0.5rem;
+        position: relative;
+        padding-left: 1.5rem;
+      }
+
+      .project-card li::before {
+        content: '>';
+        position: absolute;
+        left: 0;
+        color: var(--primary-color);
+        font-weight: bold;
+      }
+
+      /* Design Portfolio Grid */
+      .design-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .design-card {
+        position: relative;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 5px 15px var(--shadow-color);
+        border: 1px solid var(--border-color);
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        overflow: visible;
+      }
+
+      .design-card:hover {
+        
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px var(--shadow-color);
+      }
+
+      .design-card img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 15px;
+        transition: transform 0.5s ease;
+      }
+
+      .design-card:hover img {
+        transform: scale(1.05);
+      }
+
+      .design-info {
+        /* transform: translateY(100%) translateZ(20px); */
+        /* background: linear-gradient(transparent, var(--primary-color)); */
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        text-align: center;
+      }
+
+      .design-card:hover .design-info {
+        transform: translateY(0);
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: transparent;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+        font-size: 1.2rem;
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .theme-toggle:hover {
+        transform: 
+          rotateY(180deg) 
+          scale(1.2)
+          translateZ(10px);
+        box-shadow: 0 0 25px var(--primary-color);
+      }
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+      }
+
+      .modal-content {
+        position: relative;
+        max-width: 800px;
+        margin: 5% auto;
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--border-color);
+        animation: modalFadeIn 0.4s ease;
+      }
+
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 2rem;
+        cursor: pointer;
+        color: var(--text-color);
+        transition: color 0.3s ease;
+      }
+
+      .close-modal:hover {
+        color: var(--accent-color);
+      }
+
+      /* Timeline Styles */
+      .timeline {
+        border-left: 3px solid var(--primary-color);
+        padding-left: 2rem;
+        margin-left: 1rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .timeline-item {
+        margin-bottom: 3rem;
+        position: relative;
+        padding: 1.5rem;
+        background: var(--timeline-bg);
+        border-radius: 15px;
+        box-shadow: 0 3px 10px var(--shadow-color);
+        transition: transform 0.3s ease;
+        border: 1px solid var(--border-color);
+      }
+
+      .timeline-item:hover {
+        transform: translateX(10px);
+      }
+
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -2.35rem;
+        top: 1.5rem;
+        width: 15px;
+        height: 15px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px var(--bg-color);
+      }
+
+      .timeline-item h3 {
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        text-align: center;
+      }
+
+      .timeline-item p {
+        color: var(--text-color);
+        opacity: 0.9;
+        text-align: center;
+      }
+          .badges-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: 100vh;
+        overflow-y: auto;         
+      }
+
+      .badge {
+        width: 150px;
+        height: 150px;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 5px 15px var(--shadow-color);
+        border: 1px solid var(--border-color);
+      }
+
+      .badge:hover {
+        transform: scale(1.1);
+        box-shadow: 0 10px 25px var(--shadow-color);
+      }
+
+      .badge img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .skills-grid,
+        .projects-container,
+        .design-grid {
+          grid-template-columns: 1fr;
+        }
+
+        section {
+          padding: 3rem 1rem;
+        }
+
+        header {
+          padding: 3rem 1rem;
+        }
+        header h1 {
+          
+          transform: translateZ(20px);
+          transition: all 0.4s ease;
+        }
+
+        header h1:hover {
+          transform: 
+            translateZ(30px) 
+            skewX(-5deg);
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .theme-toggle {
+          top: 10px;
+          right: 10px;
+          padding: 10px;
+          font-size: 1rem;
+        }
+      }
+
+      /* Form */
+      .contact-form {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: var(--card-bg);
+        border-radius: 15px;
+        box-shadow: 0 5px 15px var(--shadow-color);
+        border: 1px solid var(--border-color);
+      }
+
+      .form-group {
+        margin-bottom: 2rem;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid var(--primary-color);
+        border-radius: 10px;
+        background: var(--bg-color);
+        color: var(--text-color);
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+      }
+
+      button {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem 3rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
+        display: block;
+        margin: 0 auto;
+      }
+
+      button:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+      }
+
+      /* Footer */
+      footer {
+        background: var(--footer-bg);
+        color: rgb(255, 255, 255);
+        text-align: center;
+        padding: 2rem;
+        transition: background 0.4s ease;
+      }
+
+      footer p {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--card-bg);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-dark);
+      }
+
+      /* Rest of the CSS remains same... */
+    </style>
+  </head>
+  <body>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌓</button>
+    <header>
+      <div class="logo animate">
+        <span class="logo-sj">SJ</span>
+      </div>
+      <img src="https://media.licdn.com/dms/image/v2/D5603AQHkG_3BxLErww/profile-displayphoto-shrink_800_800/B56ZRk.L7THQAc-/0/1736860811422?e=1756944000&v=beta&t=dX_l2lBDhlrt6DQEiAeU6g56CalI7ZttLJ-hc3dkD6c" 
+           alt="Sachchidanand Jha" 
+           class="profile">
+      <h1>Sachchidanand Jha</h1>
+      <p>Full Stack Developer & UI/UX Designer</p>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/sachchidanand-jha-b8b3a3250/" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="mailto:Sachchidanandjha1607@gmail.com" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="tel:+918533099925" aria-label="Phone">
+          <i class="fas fa-phone"></i>
+        </a>
+        <a href="https://github.com/Sachchidanandj16" target="_blank" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="SachchidanandJha_CS_GLAU.pdf" download="Sachchidanand_Jha_Resume.pdf" class="download-btn">
+          <i class="fas fa-download"></i>
+        </a>
+        <!-- Social links remain same -->
+      </div>
+    </header>
+    <section id="about">
+      <h2 class="section-title animate">About Me</h2>
+      <div class="about-content animate" style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <p>Computer Science student at GLA University with expertise in Full Stack Development and UI/UX Design. Passionate about creating beautiful and functional digital experiences that solve real-world problems.</p>
+      </div>
+    </section>
+    <section id="education">
+      <h2 class="section-title animate">Education</h2>
+      <div class="timeline">
+        <div class="timeline-item animate">
+          <h3>Bachelor of Engineering in Computer Science</h3>
+          <p>GLA University, Mathura (6.55 CGP4)</p>
+          <p>June 2025</p>
+        </div>
+        <div class="timeline-item animate">
+          <h3>Intermediate</h3>
+          <p>PDD Saraswati Vidya Mandir, Vrindavan (68.2%)</p>
+          <p>May 2021</p>
+        </div>
+        <div class="timeline-item animate">
+          <h3>HighSchool</h3>
+          <p>PDD Saraswati Vidya Mandir, Vrindavan (75.8%)</p>
+          <p>May 2020</p>
+        </div>
+      </div>
+    </section>
+    <section id="skills">
+      <h2 class="section-title animate">Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card animate">
+          <h3>Technical</h3>
+          <ul>
+            <li>Java</li>
+            <li>HTML/CSS/JavaScript</li>
+            <li>MERN Stack (MongoDB, Express, React, Node.js)</li>
+            <li>MySQL</li>
+            <li>Linux</li>
+            <li>Big Data</li>
+          </ul>
+        </div>
+        <div class="skill-card animate">
+          <h3>Design</h3>
+          <ul>
+            <li>UI/UX Design</li>
+            <li>Graphic Design</li>
+            <li>Logo Design</li>
+            <li>Adobe Illustrator</li>
+            <li>Figma</li>
+            <li>Adobe Photoshop</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="projects">
+      <h2 class="section-title animate">Development Projects</h2>
+      <div class="projects-container">
+        <div class="project-card animate">
+          <h3>Book Store Application</h3>
+          <p>July 2023</p>
+          <ul>
+            <li>Full-stack e-commerce solution for books with user authentication</li>
+            <li>Features: Inventory management, advanced search, cart system, admin dashboard</li>
+            <li>Tech Stack: MERN Stack (MongoDB, Express, React, Node.js)</li>
+          </ul>
+          <a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: bold; display: block; text-align: center;">View Project →</a>
+        </div>
+        <div class="project-card animate">
+          <h3>E-commerce Platform</h3>
+          <p>July 2023</p>
+          <ul>
+            <li>Complete online shopping solution with product categories and user reviews</li>
+            <li>Integrated payment gateway (Razorpay API)</li>
+            <li>Responsive design with mobile-first approach</li>
+            <li>Tech Stack: MERN Stack with Redux for state management</li>
+          </ul>
+          <a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: bold; display: block; text-align: center;">View Project →</a>
+        </div>
+      </div>
+    </section>
+    <section id="design-portfolio">
+      <h2 class="section-title animate">Design Portfolio</h2>
+      <div class="design-grid">
+        <div class="design-card animate" onclick="openModal('design1')">
+          <img src="https://static.vecteezy.com/system/resources/previews/004/946/889/original/e-commerce-concept-onboarding-screens-for-mobile-app-templates-customers-shopping-and-paying-at-website-of-store-ui-ux-gui-user-interface-kit-with-people-scenes-for-web-design-illustration-vector.jpg" alt="E-commerce UI Design">
+          <div class="design-info">
+            <h3>E-commerce UI Kit</h3>
+            <p>Figma Design System</p>
+          </div>
+        </div>
+        <div class="design-card animate" onclick="openModal('design2')">
+          <img src="https://static.vecteezy.com/system/resources/previews/016/386/791/original/brand-identity-design-for-office-stationery-with-black-and-red-shapes-corporate-business-identity-template-bundle-with-creative-branding-shapes-business-promotional-stationery-design-for-branding-vector.jpg" alt="Logo Collection">
+          <div class="design-info">
+            <h3>Brand Identity Package</h3>
+            <p>Logo & Branding Design</p>
+          </div>
+        </div>
+        <div class="design-card animate" onclick="openModal('design3')">
+          <img src="https://cdn.dribbble.com/users/5261465/screenshots/14133459/media/e8a80d1cee14f0cde48a75d63489bea2.jpg" alt="Mobile App Design">
+          <div class="design-info">
+            <h3>Fitness Mobile App</h3>
+            <p>UI/UX Design</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="certifications">
+      <h2 class="section-title animate">Certifications</h2>
+      <div class="badges-container">
+        <a href="https://www.linkedin.com/posts/sachchidanand-jha-b8b3a3250_certificate-of-completion-activity-7297002775555555328-7OCM?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD3-aNsBliCk9ZQi5v0bv0WVkbsZQr2xz7k" class="badge animate" target="_blank">
+          <img src="https://www.moosoft.com/wp-content/uploads/2018/05/Java-logo-150x150.png" alt="Java Certification">
+        </a>
+        <a href="#" class="badge animate">
+          <img src="https://geeksterminal.com/wp-content/uploads/2015/05/logo-ubuntu-150x150.png" alt="Linux Certification">
+        </a>
+        <a href="#" class="badge animate">
+          <img src="https://www.geojournalism.org/wp-content/uploads/2013/08/AIllustrator-150x150.png" alt="Illustrator Certification">
+        </a>
+        <a href="https://drive.google.com/file/d/1d4GOs-1CFXUFriS0XAptyNDBKC_HJurS/view?usp=sharing" class="badge animate">
+          <img src="https://datastone.com.br/wp-content/uploads/2023/07/Mas-afinal-o-que-e-Big-Data-150x150.jpg" alt="Big Data Certification">
+        </a>
+        <a href="#" class="badge animate">
+          <img src="https://logicappsv2resources.blob.core.windows.net/icons/jdbc.png" alt="Database Certification">
+        </a>
+      </div>
+    </section>
+    <section id="contact">
+      <h2 class="section-title animate">Contact</h2>
+      <div class="contact-form animate">
+        <form action="https://formspree.io/f/your-form-id" method="POST">
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
+          </div>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+    <footer>
+      <p>©2023 Sachchidanand Jha | Vrindavan, UP (281121)</p>
+    </footer>
+    <!-- Modal -->
+    <div id="projectModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="" style="width:100%; border-radius: 10px; margin-bottom: 1.5rem;">
+        <div style="padding: 0 1.5rem 1.5rem;">
+          <h2 id="modalTitle" style="margin: 1rem 0; color: var(--primary-color); text-align: center;"></h2>
+          <p id="modalDescription" style="color: var(--text-color); margin-bottom: 1.5rem; text-align: center;"></p>
+          <div id="modalTechStack" style="margin-bottom: 1.5rem; text-align: center;"></div>
+          <a id="modalLink" href="#" target="_blank" style="display: inline-block; background: var(--primary-color); color: white; padding: 0.8rem 1.5rem; border-radius: 5px; text-decoration: none; transition: all 0.3s ease; margin: 0 auto;">View Project</a>
+        </div>
+      </div>
+    </div>
+    <!-- Rest of HTML sections remain same -->
+
+    <script>
+      // Updated Mouse Effect
+      document.addEventListener('mousemove', (e) => {
+        const cards = document.querySelectorAll('.skill-card, .project-card, .design-card');
+        const mouseX = (e.clientX / window.innerWidth - 0.5) * 10;
+        const mouseY = (e.clientY / window.innerHeight - 0.5) * 10;
+        
+        cards.forEach(card => {
+          if(!card.matches(':hover')) {
+            card.style.transform = `
+              rotateX(${mouseY}deg) 
+              rotateY(${mouseX}deg) 
+              translateZ(10px)
+            `;
+          }
+        });
+      });
+      // Theme Toggle
+      function toggleTheme() {
+        const currentTheme = document.body.dataset.theme || 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.body.dataset.theme = newTheme;
+        localStorage.setItem('theme', newTheme);
+        
+        // Update button icon
+        const themeButton = document.querySelector('.theme-toggle');
+        themeButton.textContent = newTheme === 'dark' ? '🌞' : '🌙';
+      }
+      
+      // Set initial theme
+      function initializeTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.dataset.theme = savedTheme;
+        
+        // Set appropriate button icon
+        const themeButton = document.querySelector('.theme-toggle');
+        themeButton.textContent = savedTheme === 'dark' ? '🌞' : '🌙';
+      }
+      
+      // Initialize theme on page load
+      document.addEventListener('DOMContentLoaded', initializeTheme);
+      
+      // Intersection Observer for animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in', 'slide-up');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+      
+      document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+      
+      // Modal Handling
+      function openModal(projectId) {
+        const modal = document.getElementById('projectModal');
+        const projects = {
+          'design1': {
+            title: 'E-commerce UI Kit',
+            image: 'https://static.vecteezy.com/system/resources/previews/004/946/889/original/e-commerce-concept-onboarding-screens-for-mobile-app-templates-customers-shopping-and-paying-at-website-of-store-ui-ux-gui-user-interface-kit-with-people-scenes-for-web-design-illustration-vector.jpg',
+            description: 'Complete Figma design system for e-commerce applications including 50+ components and 10 page templates. Created with a mobile-first approach and accessibility in mind.',
+            tech: '<h4>Tools Used:</h4><ul style="list-style-type: none; padding-left: 0;"><li>Figma</li><li>Adobe Illustrator</li><li>Photoshop</li></ul>',
+            link: 'https://www.figma.com/design/J28yayorwVugrSM1m9rbrE/Untitled?node-id=0-1&p=f'
+          },
+          'design2': {
+            title: 'Brand Identity Package',
+            image: 'https://static.vecteezy.com/system/resources/previews/016/386/791/original/brand-identity-design-for-office-stationery-with-black-and-red-shapes-corporate-business-identity-template-bundle-with-creative-branding-shapes-business-promotional-stationery-design-for-branding-vector.jpg',
+            description: 'Complete branding package including logo design, color palette, typography system, and brand guidelines. Developed for a tech startup focusing on clean, modern aesthetics.',
+            tech: '<h4>Tools Used:</h4><ul style="list-style-type: none; padding-left: 0;"><li>Adobe Illustrator</li><li>Photoshop</li><li>InDesign</li></ul>',
+            link: '#'
+          },
+          'design3': {
+            title: 'Fitness Mobile App',
+            image: 'https://cdn.dribbble.com/users/5261465/screenshots/14133459/media/e8a80d1cee14f0cde48a75d63489bea2.jpg',
+            description: 'UI/UX design for a fitness tracking mobile application with workout plans, nutrition tracking, and progress analytics. Designed with a focus on user motivation and engagement.',
+            tech: '<h4>Tools Used:</h4><ul style="list-style-type: none; padding-left: 0;"><li>Figma</li><li>Adobe XD</li><li>Illustrator</li></ul>',
+            link: '#'
+          }
+        };
+        
+        const project = projects[projectId];
+        document.getElementById('modalTitle').textContent = project.title;
+        document.getElementById('modalImage').src = project.image;
+        document.getElementById('modalDescription').textContent = project.description;
+        document.getElementById('modalTechStack').innerHTML = project.tech;
+        document.getElementById('modalLink').href = project.link;
+        
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeModal() {
+        document.getElementById('projectModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+      
+      // Close modal when clicking outside
+      window.onclick = function(event) {
+        const modal = document.getElementById('projectModal');
+        if (event.target == modal) {
+          closeModal();
+        }
+      }
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          closeModal();
+        }
+      });
+      // Rest of JavaScript remains same
+    </script>
+  </body>
+</html>
