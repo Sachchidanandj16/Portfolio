@@ -1,940 +1,526 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="en" class="scroll-smooth">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sachchidanand Jha | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* Base Styles */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
-
-      :root {
-        --primary-color: #2563eb;
-        --primary-dark: #1d4ed8;
-        --secondary-color: #3b82f6;
-        --accent-color: #ef4444;
-        --dark-color: #1e293b;
-        --light-color: #f8fafc;
-        --bg-color: #ffffff;
-        --text-color: #1e293b;
-        --card-bg: #f1f5f9;
-        --border-color: #cbd5e1;
-        --shadow-color: rgba(0, 0, 0, 0.05);
-        --header-bg: #0f172a;
-        --footer-bg:var(--header-bg);
-      }
-
-      [data-theme="dark"] {
-        --primary-color: #818cf8;
-        --primary-dark: #6366f1;
-        --secondary-color: #38bdf8;
-        --accent-color: #fb7185;
-        --dark-color: #f8fafc;
-        --light-color: #1e293b;
-        --bg-color: #0f172a;
-        --text-color: #f8fafc;
-        --card-bg: #1e293b;
-        --border-color: #334155;
-        --shadow-color: rgba(0, 0, 0, 0.3);
-        --header-bg: #818cf8;
-        --footer-bg:var(--header-bg);
-      }
-
-      body {
-        background-color: var(--bg-color);
-        color: var(--text-color);
-        transition: all 0.4s ease;
-        line-height: 1.6;
-        overflow-y: auto;
-      }
-
-      /* Animations */
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      @keyframes slideUp {
-        from {
-          transform: translateY(50px);
-          opacity: 0;
+        :root {
+            --bg-dark: #0f172a;
+            --bg-light: #ffffff;
+            --text-dark: #e2e8f0;
+            --text-light: #1e293b;
+            --card-dark: #1e293b;
+            --card-light: #f1f5f9;
+            --primary-dark: #818cf8;
+            --primary-light: #2563eb;
+            --border-dark: #334155;
+            --border-light: #cbd5e1;
         }
-        to {
-          transform: translateY(0);
-          opacity: 1;
+
+        [data-theme="dark"] {
+            --bg-color: var(--bg-dark);
+            --text-color: var(--text-dark);
+            --card-bg: var(--card-dark);
+            --primary-color: var(--primary-dark);
+            --border-color: var(--border-dark);
         }
-      }
 
-      .animate {
-        opacity: 0;
-      }
+        [data-theme="light"] {
+            --bg-color: var(--bg-light);
+            --text-color: var(--text-light);
+            --card-bg: var(--card-light);
+            --primary-color: var(--primary-light);
+            --border-color: var(--border-light);
+        }
 
-      .fade-in {
-        animation: fadeIn 0.6s forwards;
-      }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-      .slide-up {
-        animation: slideUp 0.8s forwards;
-      }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--card-dark); }
+        ::-webkit-scrollbar-thumb { background: #4a5568; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #718096; }
 
-      /* Header Styles */
-      header {
-        background: var(--header-bg);
-        color: white;
-        padding: 4rem 2rem;
-        text-align: center;
-        position: relative;
-        transition: background 0.4s ease;
-      }
+        /* Scroll Animation */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-animate.in-view { opacity: 1; transform: translateY(0); }
 
-      /* SJ Logo Styles */
-      .logo {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        z-index: 1000;
-      }
-
-      .logo-sj {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #f1f5f9;
-        text-shadow: 
-          2px 2px 0 var(--primary-dark),
-          4px 4px 10px rgb(255, 255, 255);
-        transition: all 0.3s ease;
-        display: inline-block;
-        transform: translateZ(0);
-      }
-
-      .logo-sj:hover {
-        transform: 
-          rotate(-5deg) 
-          scale(1.1)
-          translateZ(10px);
-        text-shadow: 
-          3px 3px 0 var(--primary-dark),
-          6px 6px 15px rgba(0,0,0,0.3);
-      }
-
-      .profile {
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        margin: 1rem auto;
-        border: 4px solid var(--primary-color);
-        object-fit: cover;
-        transition: all 0.3s ease;
-      }
-
-      .profile:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px rgba(233, 235, 234, 0.5);
-      }
-
-      .social-links {
-        margin-top: 1.5rem;
-      }
-
-      .download-btn {
-        color: white;
-        margin: 0 10px;
-        font-size: 0.5rem;
-        transition: transform 0.3s ease, color 0.3s ease;
-      }
-
-      .download-btn:hover {
-        color: var(--primary-color);
-        transform: translateY(-3px);
-      }
-
-      
-      .social-links a {
-        color: white;
-        margin: 0 10px;
-        font-size: 1.5rem;
-        transition: transform 0.3s ease, color 0.3s ease;
-      }
-
-      .social-links a:hover {
-        color: var(--primary-color);
-        transform: translateY(-3px);
-      }
-
-      /* Section Common Styles */
-      section {
-        padding: 4rem 2rem;
-        transition: background 0.4s ease;
-      }
-
-      .section-title {
-        text-align: center;
-        margin-bottom: 3rem;
-        color: var(--primary-color);
-        font-size: 2.5rem;
-        position: relative;
-        width: 100%;
-      }
-
-      .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 3px;
-        background: var(--primary-color);
-        border-radius: 3px;
-      }
-
-      /* Skills Grid */
-      .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .skill-card, .project-card {
-        background: var(--card-bg);
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px var(--shadow-color);
-        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        border: 1px solid var(--border-color);
-        transform-style: preserve-3d;
-        perspective: 1000px;
-        will-change: transform;
-      }
-
-      .skill-card:hover, .project-card:hover {
-        transform: 
-          translateY(-10px) 
-          rotateX(5deg) 
-          rotateY(5deg) 
-          translateZ(20px);
-        box-shadow: 
-          0 25px 40px var(--shadow-color),
-          0 0 50px rgba(0,0,0,0.1);
-      }
-
-      .skill-card h3 {
-        color: var(--primary-color);
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
-        text-align: center;
-      }
-
-      .skill-card ul {
-        list-style-type: none;
-      }
-
-      .skill-card li {
-        margin-bottom: 0.5rem;
-        position: relative;
-        padding-left: 1.5rem;
-      }
-
-      .skill-card li::before {
-        content: '▹';
-        position: absolute;
-        left: 0;
-        color: var(--primary-color);
-      }
-
-      /* Project Cards */
-      .projects-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        min-height: 100vh;
-        overflow-y: auto; 
-      }
-
-      .project-card h3 {
-        color: var(--primary-color);
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-
-      .project-card p {
-        color: var(--text-color);
-        opacity: 0.8;
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-
-      .project-card ul {
-        margin-top: 1rem;
-      }
-
-      .project-card li {
-        margin-bottom: 0.5rem;
-        position: relative;
-        padding-left: 1.5rem;
-      }
-
-      .project-card li::before {
-        content: '>';
-        position: absolute;
-        left: 0;
-        color: var(--primary-color);
-        font-weight: bold;
-      }
-
-      /* Design Portfolio Grid */
-      .design-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      .design-card {
-        position: relative;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 5px 15px var(--shadow-color);
-        border: 1px solid var(--border-color);
-        perspective: 1000px;
-        transform-style: preserve-3d;
-        overflow: visible;
-      }
-
-      .design-card:hover {
+        /* Nav Link Underline Effect */
+        .nav-link { position: relative; transition: color 0.3s; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 100%;
+            transform: scaleX(0); height: 2px; bottom: -6px; left: 0;
+            background-color: var(--primary-color);
+            transform-origin: bottom right; transition: transform 0.25s ease-out;
+        }
+        .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); transform-origin: bottom left; }
+        .nav-link.active { color: var(--primary-color) !important; }
         
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px var(--shadow-color);
-      }
-
-      .design-card img {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        border-radius: 15px;
-        transition: transform 0.5s ease;
-      }
-
-      .design-card:hover img {
-        transform: scale(1.05);
-      }
-
-      .design-info {
-        /* transform: translateY(100%) translateZ(20px); */
-        /* background: linear-gradient(transparent, var(--primary-color)); */
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-        text-align: center;
-      }
-
-      .design-card:hover .design-info {
-        transform: translateY(0);
-      }
-
-      /* Theme Toggle */
-      .theme-toggle {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: transparent;
-        color: white;
-        border: none;
-        padding: 12px;
-        border-radius: 50%;
-        cursor: pointer;
-        z-index: 1000;
-        font-size: 1.2rem;
-        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        perspective: 1000px;
-        transform-style: preserve-3d;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      }
-
-      .theme-toggle:hover {
-        transform: 
-          rotateY(180deg) 
-          scale(1.2)
-          translateZ(10px);
-        box-shadow: 0 0 25px var(--primary-color);
-      }
-      /* Modal */
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: 1000;
-        backdrop-filter: blur(5px);
-      }
-
-      .modal-content {
-        position: relative;
-        max-width: 800px;
-        margin: 5% auto;
-        background: var(--card-bg);
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
-        border: 1px solid var(--border-color);
-        animation: modalFadeIn 0.4s ease;
-      }
-
-      @keyframes modalFadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-50px);
+        /* Glassmorphism Effect */
+        .glass-effect {
+            background: rgba(23, 23, 23, 0.6);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .close-modal {
-        position: absolute;
-        top: 15px;
-        right: 25px;
-        font-size: 2rem;
-        cursor: pointer;
-        color: var(--text-color);
-        transition: color 0.3s ease;
-      }
-
-      .close-modal:hover {
-        color: var(--accent-color);
-      }
-
-      /* Timeline Styles */
-      .timeline {
-        border-left: 3px solid var(--primary-color);
-        padding-left: 2rem;
-        margin-left: 1rem;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      .timeline-item {
-        margin-bottom: 3rem;
-        position: relative;
-        padding: 1.5rem;
-        background: var(--timeline-bg);
-        border-radius: 15px;
-        box-shadow: 0 3px 10px var(--shadow-color);
-        transition: transform 0.3s ease;
-        border: 1px solid var(--border-color);
-      }
-
-      .timeline-item:hover {
-        transform: translateX(10px);
-      }
-
-      .timeline-item::before {
-        content: '';
-        position: absolute;
-        left: -2.35rem;
-        top: 1.5rem;
-        width: 15px;
-        height: 15px;
-        background: var(--primary-color);
-        border-radius: 50%;
-        box-shadow: 0 0 0 4px var(--bg-color);
-      }
-
-      .timeline-item h3 {
-        color: var(--primary-color);
-        margin-bottom: 0.5rem;
-        text-align: center;
-      }
-
-      .timeline-item p {
-        color: var(--text-color);
-        opacity: 0.9;
-        text-align: center;
-      }
-          .badges-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: center;
-        max-width: 1200px;
-        margin: 0 auto;
-        min-height: 100vh;
-        overflow-y: auto;         
-      }
-
-      .badge {
-        width: 150px;
-        height: 150px;
-        border-radius: 15px;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 5px 15px var(--shadow-color);
-        border: 1px solid var(--border-color);
-      }
-
-      .badge:hover {
-        transform: scale(1.1);
-        box-shadow: 0 10px 25px var(--shadow-color);
-      }
-
-      .badge img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      /* Responsive Design */
-      @media (max-width: 768px) {
-        .skills-grid,
-        .projects-container,
-        .design-grid {
-          grid-template-columns: 1fr;
+        [data-theme="light"] .glass-effect {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        section {
-          padding: 3rem 1rem;
+        /* Timeline */
+        .timeline-item {
+            position: relative; padding-left: 3rem; padding-bottom: 2rem;
+            border-left: 2px solid var(--border-color);
+        }
+        .timeline-item:last-child { border-left: 2px solid transparent; }
+        .timeline-dot {
+            position: absolute; left: -9px; top: 4px; height: 18px; width: 18px;
+            background-color: var(--bg-color); border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
-        header {
-          padding: 3rem 1rem;
-        }
-        header h1 {
-          
-          transform: translateZ(20px);
-          transition: all 0.4s ease;
-        }
-
-        header h1:hover {
-          transform: 
-            translateZ(30px) 
-            skewX(-5deg);
-        }
-
+        /* Typing cursor */
+        .typed-cursor { color: var(--primary-color); }
+        
         .section-title {
-          font-size: 2rem;
+            color: var(--primary-color);
         }
 
-        .theme-toggle {
-          top: 10px;
-          right: 10px;
-          padding: 10px;
-          font-size: 1rem;
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
         }
-      }
 
-      /* Form */
-      .contact-form {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
-        background: var(--card-bg);
-        border-radius: 15px;
-        box-shadow: 0 5px 15px var(--shadow-color);
-        border: 1px solid var(--border-color);
-      }
-
-      .form-group {
-        margin-bottom: 2rem;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        padding: 1rem;
-        border: 2px solid var(--primary-color);
-        border-radius: 10px;
-        background: var(--bg-color);
-        color: var(--text-color);
-        font-size: 1rem;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      input:focus,
-      textarea:focus {
-        outline: none;
-        border-color: var(--secondary-color);
-        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
-      }
-
-      button {
-        background: var(--primary-color);
-        color: white;
-        padding: 1rem 3rem;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 1.1rem;
-        display: block;
-        margin: 0 auto;
-      }
-
-      button:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
-      }
-
-      /* Footer */
-      footer {
-        background: var(--footer-bg);
-        color: rgb(255, 255, 255);
-        text-align: center;
-        padding: 2rem;
-        transition: background 0.4s ease;
-      }
-
-      footer p {
-        margin: 0;
-        font-size: 1rem;
-      }
-
-      /* Scrollbar */
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: var(--card-bg);
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: var(--primary-color);
-        border-radius: 5px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--primary-dark);
-      }
-
-      /* Rest of the CSS remains same... */
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
     </style>
-  </head>
-  <body>
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌓</button>
-    <header>
-      <div class="logo animate">
-        <span class="logo-sj">SJ</span>
-      </div>
-      <img src="20241008_141834.jpg" 
-           alt="Sachchidanand Jha" 
-           class="profile">
-      <h1>Sachchidanand Jha</h1>
-      <p>Full Stack Developer & UI/UX Designer</p>
-      <div class="social-links">
-        <a href="https://www.linkedin.com/in/sachchidanand-jha-b8b3a3250/" target="_blank" aria-label="LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="mailto:Sachchidanandjha1607@gmail.com" aria-label="Email">
-          <i class="fas fa-envelope"></i>
-        </a>
-        <a href="tel:+918533099925" aria-label="Phone">
-          <i class="fas fa-phone"></i>
-        </a>
-        <a href="https://github.com/Sachchidanandj16" target="_blank" aria-label="GitHub">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="SachchidanandJha_CS_GLAU.pdf" download="Sachchidanand_Jha_Resume.pdf" class="download-btn">
-          <i class="fas fa-download"></i>
-        </a>
-        <!-- Social links remain same -->
-      </div>
+</head>
+
+<body data-theme="dark" class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold logo-sj" style="color: var(--primary-color);">SJ</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="nav-link text-slate-300 hover:text-sky-400">About</a>
+                <a href="#skills" class="nav-link text-slate-300 hover:text-sky-400">Skills</a>
+                <a href="#projects" class="nav-link text-slate-300 hover:text-sky-400">Projects</a>
+                <a href="#certifications" class="nav-link text-slate-300 hover:text-sky-400">Certifications</a>
+                <a href="#contact" class="nav-link text-slate-300 hover:text-sky-400">Contact</a>
+                <button id="theme-toggle" class="text-xl p-2 rounded-full focus:outline-none">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900/80 backdrop-blur-sm">
+            <a href="#about" class="block text-center py-3 text-lg nav-link">About</a>
+            <a href="#skills" class="block text-center py-3 text-lg nav-link">Skills</a>
+            <a href="#projects" class="block text-center py-3 text-lg nav-link">Projects</a>
+            <a href="#certifications" class="block text-center py-3 text-lg nav-link">Certifications</a>
+            <a href="#contact" class="block text-center py-3 text-lg nav-link">Contact</a>
+             <button id="mobile-theme-toggle" class="w-full py-3 text-xl">
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
     </header>
-    <section id="about">
-      <h2 class="section-title animate">About Me</h2>
-      <div class="about-content animate" style="max-width: 800px; margin: 0 auto; text-align: center;">
-        <p>Computer Science student at GLA University with expertise in Full Stack Development and UI/UX Design. Passionate about creating beautiful and functional digital experiences that solve real-world problems.</p>
-      </div>
-    </section>
-    <section id="education">
-      <h2 class="section-title animate">Education</h2>
-      <div class="timeline">
-        <div class="timeline-item animate">
-          <h3>Bachelor of Engineering in Computer Science</h3>
-          <p>GLA University, Mathura (6.70 CGPA)</p>
-          <p>June 2025</p>
+
+    <main class="pt-24">
+
+        <!-- Hero Section -->
+        <section id="home" class="min-h-[80vh] container mx-auto px-6 flex flex-col md:flex-row items-center justify-center text-center md:text-left">
+            <div class="md:w-1/2 md:pr-10">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">Sachchidanand Jha</h1>
+                <p class="text-2xl mb-6" style="color: var(--primary-color);">I'm a <span id="typed-text"></span></p>
+                <p class="mb-8 max-w-lg mx-auto md:mx-0">Computer Science student passionate about creating beautiful and functional digital experiences that solve real-world problems.</p>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="SachchidanandJha_CS_GLAU.pdf" download="Sachchidanand_Jha_Resume.pdf" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                        Download CV <i class="fas fa-download ml-2"></i>
+                    </a>
+                    <a href="#contact" class="border-2 border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                        Contact Me
+                    </a>
+                </div>
+                 <div class="mt-8 flex justify-center md:justify-start space-x-6">
+                    <a href="https://www.linkedin.com/in/sachchidanand-jha-b8b3a3250/" target="_blank" aria-label="LinkedIn" class="text-3xl hover:text-indigo-400 transition transform hover:scale-110"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:Sachchidanandjha1607@gmail.com" aria-label="Email" class="text-3xl hover:text-indigo-400 transition transform hover:scale-110"><i class="fas fa-envelope"></i></a>
+                    <a href="tel:+918533099925" aria-label="Phone" class="text-3xl hover:text-indigo-400 transition transform hover:scale-110"><i class="fas fa-phone"></i></a>
+                    <a href="https://github.com/Sachchidanandj16" target="_blank" aria-label="GitHub" class="text-3xl hover:text-indigo-400 transition transform hover:scale-110"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">
+                 <img src="20241008-141834.jpg" alt="Sachchidanand Jha" class="w-72 h-72 md:w-96 md:h-96 rounded-full object-cover border-4" style="border-color: var(--primary-color);">
+            </div>
+        </section>
+
+        <!-- About & Education Section -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                 <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">Education</h2>
+                <div class="max-w-3xl mx-auto scroll-animate">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-xl font-bold mb-1">Bachelor of Engineering in Computer Science</h3>
+                        <p class="text-slate-400 mb-1">GLA University, Mathura (6.70 CGPA)</p>
+                        <p class="text-sm text-slate-500">Expected June 2025</p>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-xl font-bold mb-1">Intermediate (12th Grade)</h3>
+                        <p class="text-slate-400 mb-1">PDD Saraswati Vidya Mandir, Vrindavan (68.2%)</p>
+                        <p class="text-sm text-slate-500">May 2021</p>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-xl font-bold mb-1">High School (10th Grade)</h3>
+                        <p class="text-slate-400 mb-1">PDD Saraswati Vidya Mandir, Vrindavan (75.8%)</p>
+                        <p class="text-sm text-slate-500">May 2020</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20" style="background-color: var(--card-bg);">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">My Skills</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card p-8 rounded-lg scroll-animate">
+                        <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--primary-color);">Technical</h3>
+                        <ul class="space-y-3 text-lg">
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Java</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>HTML/CSS/JavaScript</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>MERN Stack</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>MySQL</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Linux</li>
+                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Big Data</li>
+                        </ul>
+                    </div>
+                     <div class="card p-8 rounded-lg scroll-animate">
+                        <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--primary-color);">Design</h3>
+                        <ul class="space-y-3 text-lg">
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>UI/UX Design</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Graphic & Logo Design</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Figma</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Adobe Illustrator</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Adobe Photoshop</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-4xl font-bold text-center mb-4 scroll-animate">Development Projects</h2>
+                 <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 scroll-animate">Here are some of the projects I've built, showcasing my skills in full-stack development.</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card rounded-lg overflow-hidden scroll-animate">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2" style="color: var(--primary-color);">Book Store Application</h3>
+                             <p class="text-sm text-slate-500 mb-4">July 2023</p>
+                            <ul class="space-y-2 mb-6 list-disc list-inside">
+                                <li>Full-stack e-commerce solution for books.</li>
+                                <li>Features: User authentication, inventory management, advanced search, and admin dashboard.</li>
+                            </ul>
+                             <p class="font-semibold"><strong>Tech Stack:</strong> MERN (MongoDB, Express, React, Node.js)</p>
+                        </div>
+                    </div>
+                    <div class="card rounded-lg overflow-hidden scroll-animate">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2" style="color: var(--primary-color);">E-commerce Platform</h3>
+                             <p class="text-sm text-slate-500 mb-4">July 2023</p>
+                             <ul class="space-y-2 mb-6 list-disc list-inside">
+                                <li>Complete online shopping solution with categories and reviews.</li>
+                                <li>Integrated Razorpay payment gateway.</li>
+                                <li>Fully responsive, mobile-first design.</li>
+                            </ul>
+                            <p class="font-semibold"><strong>Tech Stack:</strong> MERN with Redux for state management.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Design Portfolio Section -->
+        <section id="design-portfolio" class="py-20" style="background-color: var(--card-bg);">
+             <div class="container mx-auto px-6">
+                <h2 class="section-title text-4xl font-bold text-center mb-4 scroll-animate">Design Portfolio</h2>
+                <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 scroll-animate">A selection of my design work, from UI/UX to branding.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card group rounded-lg overflow-hidden cursor-pointer scroll-animate" onclick="openModal('design1')">
+                        <img src="https://static.vecteezy.com/system/resources/previews/004/946/889/original/e-commerce-concept-onboarding-screens-for-mobile-app-templates-customers-shopping-and-paying-at-website-of-store-ui-ux-gui-user-interface-kit-with-people-scenes-for-web-design-illustration-vector.jpg" alt="E-commerce UI Design" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold">E-commerce UI Kit</h3>
+                            <p class="text-sm text-slate-400">Figma Design System</p>
+                        </div>
+                    </div>
+                     <div class="card group rounded-lg overflow-hidden cursor-pointer scroll-animate" onclick="openModal('design2')">
+                        <img src="https://static.vecteezy.com/system/resources/previews/016/386/791/original/brand-identity-design-for-office-stationery-with-black-and-red-shapes-corporate-business-identity-template-bundle-with-creative-branding-shapes-business-promotional-stationery-design-for-branding-vector.jpg" alt="Logo Collection" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold">Brand Identity Package</h3>
+                            <p class="text-sm text-slate-400">Logo & Branding Design</p>
+                        </div>
+                    </div>
+                     <div class="card group rounded-lg overflow-hidden cursor-pointer scroll-animate" onclick="openModal('design3')">
+                        <img src="https://cdn.dribbble.com/users/5261465/screenshots/14133459/media/e8a80d1cee14f0cde48a75d63489bea2.jpg" alt="Mobile App Design" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold">Fitness Mobile App</h3>
+                            <p class="text-sm text-slate-400">UI/UX Design</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section id="certifications" class="py-20">
+            <div class="container mx-auto px-6">
+                 <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">Certifications</h2>
+                <div class="flex flex-wrap justify-center items-center gap-8">
+                    <a href="https://www.linkedin.com/posts/sachchidanand-jha-b8b3a3250_certificate-of-completion-activity-7297002775555555328-7OCM" target="_blank" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
+                        <img src="https://www.moosoft.com/wp-content/uploads/2018/05/Java-logo-150x150.png" alt="Java Certification" class="h-24 w-24 object-contain">
+                    </a>
+                     <a href="#" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
+                        <img src="https://geeksterminal.com/wp-content/uploads/2015/05/logo-ubuntu-150x150.png" alt="Linux Certification" class="h-24 w-24 object-contain">
+                    </a>
+                     <a href="#" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
+                        <img src="https://www.geojournalism.org/wp-content/uploads/2013/08/AIllustrator-150x150.png" alt="Illustrator Certification" class="h-24 w-24 object-contain">
+                    </a>
+                    <a href="https://drive.google.com/file/d/1d4GOs-1CFXUFriS0XAptyNDBKC_HJurS/view?usp=sharing" target="_blank" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
+                        <img src="https://datastone.com.br/wp-content/uploads/2023/07/Mas-afinal-o-que-e-Big-Data-150x150.jpg" alt="Big Data Certification" class="h-24 w-24 object-contain">
+                    </a>
+                     <a href="#" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
+                        <img src="https://logicappsv2resources.blob.core.windows.net/icons/jdbc.png" alt="Database Certification" class="h-24 w-24 object-contain">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20" style="background-color: var(--card-bg);">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-4xl font-bold text-center mb-4 scroll-animate">Get In Touch</h2>
+                <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 scroll-animate">Have a project in mind or just want to say hi? Feel free to send me a message.</p>
+                <div class="max-w-3xl mx-auto card p-8 rounded-lg scroll-animate">
+                    <form action="https://formspree.io/f/your-form-id" method="POST"> <!-- Replace with your Formspree ID -->
+                        <div class="mb-6">
+                            <label for="name" class="block mb-2 text-sm font-medium">Your Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                         <div class="mb-6">
+                            <label for="email" class="block mb-2 text-sm font-medium">Your Email</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block mb-2 text-sm font-medium">Message</label>
+                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-8" style="background-color: var(--bg-dark);">
+        <div class="container mx-auto px-6 text-center text-slate-400">
+             <p>&copy; 2025 Sachchidanand Jha | Vrindavan, UP (281121)</p>
         </div>
-        <div class="timeline-item animate">
-          <h3>Intermediate</h3>
-          <p>PDD Saraswati Vidya Mandir, Vrindavan (68.2%)</p>
-          <p>May 2021</p>
-        </div>
-        <div class="timeline-item animate">
-          <h3>HighSchool</h3>
-          <p>PDD Saraswati Vidya Mandir, Vrindavan (75.8%)</p>
-          <p>May 2020</p>
-        </div>
-      </div>
-    </section>
-    <section id="skills">
-      <h2 class="section-title animate">Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-card animate">
-          <h3>Technical</h3>
-          <ul>
-            <li>Java</li>
-            <li>HTML/CSS/JavaScript</li>
-            <li>MERN Stack (MongoDB, Express, React, Node.js)</li>
-            <li>MySQL</li>
-            <li>Linux</li>
-            <li>Big Data</li>
-          </ul>
-        </div>
-        <div class="skill-card animate">
-          <h3>Design</h3>
-          <ul>
-            <li>UI/UX Design</li>
-            <li>Graphic Design</li>
-            <li>Logo Design</li>
-            <li>Adobe Illustrator</li>
-            <li>Figma</li>
-            <li>Adobe Photoshop</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-    <section id="projects">
-      <h2 class="section-title animate">Development Projects</h2>
-      <div class="projects-container">
-        <div class="project-card animate">
-          <h3>Book Store Application</h3>
-          <p>July 2023</p>
-          <ul>
-            <li>Full-stack e-commerce solution for books with user authentication</li>
-            <li>Features: Inventory management, advanced search, cart system, admin dashboard</li>
-            <li>Tech Stack: MERN Stack (MongoDB, Express, React, Node.js)</li>
-          </ul>
-          <a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: bold; display: block; text-align: center;">View Project →</a>
-        </div>
-        <div class="project-card animate">
-          <h3>E-commerce Platform</h3>
-          <p>July 2023</p>
-          <ul>
-            <li>Complete online shopping solution with product categories and user reviews</li>
-            <li>Integrated payment gateway (Razorpay API)</li>
-            <li>Responsive design with mobile-first approach</li>
-            <li>Tech Stack: MERN Stack with Redux for state management</li>
-          </ul>
-          <a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: bold; display: block; text-align: center;">View Project →</a>
-        </div>
-      </div>
-    </section>
-    <section id="design-portfolio">
-      <h2 class="section-title animate">Design Portfolio</h2>
-      <div class="design-grid">
-        <div class="design-card animate" onclick="openModal('design1')">
-          <img src="https://static.vecteezy.com/system/resources/previews/004/946/889/original/e-commerce-concept-onboarding-screens-for-mobile-app-templates-customers-shopping-and-paying-at-website-of-store-ui-ux-gui-user-interface-kit-with-people-scenes-for-web-design-illustration-vector.jpg" alt="E-commerce UI Design">
-          <div class="design-info">
-            <h3>E-commerce UI Kit</h3>
-            <p>Figma Design System</p>
-          </div>
-        </div>
-        <div class="design-card animate" onclick="openModal('design2')">
-          <img src="https://static.vecteezy.com/system/resources/previews/016/386/791/original/brand-identity-design-for-office-stationery-with-black-and-red-shapes-corporate-business-identity-template-bundle-with-creative-branding-shapes-business-promotional-stationery-design-for-branding-vector.jpg" alt="Logo Collection">
-          <div class="design-info">
-            <h3>Brand Identity Package</h3>
-            <p>Logo & Branding Design</p>
-          </div>
-        </div>
-        <div class="design-card animate" onclick="openModal('design3')">
-          <img src="https://cdn.dribbble.com/users/5261465/screenshots/14133459/media/e8a80d1cee14f0cde48a75d63489bea2.jpg" alt="Mobile App Design">
-          <div class="design-info">
-            <h3>Fitness Mobile App</h3>
-            <p>UI/UX Design</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="certifications">
-      <h2 class="section-title animate">Certifications</h2>
-      <div class="badges-container">
-        <a href="https://www.linkedin.com/posts/sachchidanand-jha-b8b3a3250_certificate-of-completion-activity-7297002775555555328-7OCM?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD3-aNsBliCk9ZQi5v0bv0WVkbsZQr2xz7k" class="badge animate" target="_blank">
-          <img src="https://www.moosoft.com/wp-content/uploads/2018/05/Java-logo-150x150.png" alt="Java Certification">
-        </a>
-        <a href="#" class="badge animate">
-          <img src="https://geeksterminal.com/wp-content/uploads/2015/05/logo-ubuntu-150x150.png" alt="Linux Certification">
-        </a>
-        <a href="#" class="badge animate">
-          <img src="https://www.geojournalism.org/wp-content/uploads/2013/08/AIllustrator-150x150.png" alt="Illustrator Certification">
-        </a>
-        <a href="https://drive.google.com/file/d/1d4GOs-1CFXUFriS0XAptyNDBKC_HJurS/view?usp=sharing" class="badge animate">
-          <img src="https://datastone.com.br/wp-content/uploads/2023/07/Mas-afinal-o-que-e-Big-Data-150x150.jpg" alt="Big Data Certification">
-        </a>
-        <a href="#" class="badge animate">
-          <img src="https://logicappsv2resources.blob.core.windows.net/icons/jdbc.png" alt="Database Certification">
-        </a>
-      </div>
-    </section>
-    <section id="contact">
-      <h2 class="section-title animate">Contact</h2>
-      <div class="contact-form animate">
-        <form action="https://formspree.io/f/your-form-id" method="POST">
-          <div class="form-group">
-            <input type="text" name="name" placeholder="Your Name" required>
-          </div>
-          <div class="form-group">
-            <input type="email" name="email" placeholder="Your Email" required>
-          </div>
-          <div class="form-group">
-            <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
-          </div>
-          <button type="submit">Send Message</button>
-        </form>
-      </div>
-    </section>
-    <footer>
-      <p>©2023 Sachchidanand Jha | Vrindavan, UP (281121)</p>
     </footer>
+    
     <!-- Modal -->
-    <div id="projectModal" class="modal">
-      <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <img id="modalImage" src="" alt="" style="width:100%; border-radius: 10px; margin-bottom: 1.5rem;">
-        <div style="padding: 0 1.5rem 1.5rem;">
-          <h2 id="modalTitle" style="margin: 1rem 0; color: var(--primary-color); text-align: center;"></h2>
-          <p id="modalDescription" style="color: var(--text-color); margin-bottom: 1.5rem; text-align: center;"></p>
-          <div id="modalTechStack" style="margin-bottom: 1.5rem; text-align: center;"></div>
-          <a id="modalLink" href="#" target="_blank" style="display: inline-block; background: var(--primary-color); color: white; padding: 0.8rem 1.5rem; border-radius: 5px; text-decoration: none; transition: all 0.3s ease; margin: 0 auto;">View Project</a>
-        </div>
+    <div id="projectModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
+      <div id="modal-content" class="card max-w-2xl w-11/12 rounded-lg p-6 relative transform transition-all duration-300 scale-95 opacity-0">
+        <button onclick="closeModal()" class="absolute -top-3 -right-3 h-8 w-8 bg-red-500 text-white rounded-full">&times;</button>
+        <img id="modalImage" src="" alt="Project Image" class="w-full h-auto rounded-lg mb-4 max-h-80 object-contain">
+        <h2 id="modalTitle" class="text-2xl font-bold mb-2" style="color: var(--primary-color);"></h2>
+        <p id="modalDescription" class="mb-4"></p>
+        <div id="modalTechStack" class="mb-4"></div>
+        <a id="modalLink" href="#" target="_blank" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-5 rounded-lg transition">View Project</a>
       </div>
     </div>
-    <!-- Rest of HTML sections remain same -->
+
 
     <script>
-      // Updated Mouse Effect
-      document.addEventListener('mousemove', (e) => {
-        const cards = document.querySelectorAll('.skill-card, .project-card, .design-card');
-        const mouseX = (e.clientX / window.innerWidth - 0.5) * 10;
-        const mouseY = (e.clientY / window.innerHeight - 0.5) * 10;
-        
-        cards.forEach(card => {
-          if(!card.matches(':hover')) {
-            card.style.transform = `
-              rotateX(${mouseY}deg) 
-              rotateY(${mouseX}deg) 
-              translateZ(10px)
-            `;
-          }
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Typed.js Initialization
+            new Typed('#typed-text', {
+                strings: ['a Full-Stack Developer.', 'a UI/UX Designer.', 'a Problem Solver.'],
+                typeSpeed: 70,
+                backSpeed: 50,
+                backDelay: 2000,
+                loop: true
+            });
+
+            // Intersection Observer for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+            
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu on link click
+            mobileMenu.addEventListener('click', (e) => {
+                if(e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+                     mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Theme Toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            const sunIcon = '<i class="fas fa-sun"></i>';
+            const moonIcon = '<i class="fas fa-moon"></i>';
+
+            const setTheme = (theme) => {
+                document.body.dataset.theme = theme;
+                localStorage.setItem('theme', theme);
+                if (theme === 'dark') {
+                    themeToggle.innerHTML = sunIcon;
+                    mobileThemeToggle.innerHTML = sunIcon;
+                } else {
+                    themeToggle.innerHTML = moonIcon;
+                    mobileThemeToggle.innerHTML = moonIcon;
+                }
+            };
+
+            const toggleTheme = () => {
+                const currentTheme = document.body.dataset.theme;
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            };
+            
+            themeToggle.addEventListener('click', toggleTheme);
+            mobileThemeToggle.addEventListener('click', toggleTheme);
+
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(savedTheme);
+            
+            // Active Nav Link on Scroll
+             const sections = document.querySelectorAll('section[id]');
+             const navLinks = document.querySelectorAll('.nav-link');
+             
+             window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if(pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if(link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+             });
         });
-      });
-      // Theme Toggle
-      function toggleTheme() {
-        const currentTheme = document.body.dataset.theme || 'light';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        document.body.dataset.theme = newTheme;
-        localStorage.setItem('theme', newTheme);
         
-        // Update button icon
-        const themeButton = document.querySelector('.theme-toggle');
-        themeButton.textContent = newTheme === 'dark' ? '🌞' : '🌙';
-      }
-      
-      // Set initial theme
-      function initializeTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.body.dataset.theme = savedTheme;
-        
-        // Set appropriate button icon
-        const themeButton = document.querySelector('.theme-toggle');
-        themeButton.textContent = savedTheme === 'dark' ? '🌞' : '🌙';
-      }
-      
-      // Initialize theme on page load
-      document.addEventListener('DOMContentLoaded', initializeTheme);
-      
-      // Intersection Observer for animations
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in', 'slide-up');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-      
-      document.querySelectorAll('.animate').forEach(el => observer.observe(el));
-      
-      // Modal Handling
-      function openModal(projectId) {
+        // Modal Handling
         const modal = document.getElementById('projectModal');
-        const projects = {
-          'design1': {
-            title: 'E-commerce UI Kit',
-            image: 'https://static.vecteezy.com/system/resources/previews/004/946/889/original/e-commerce-concept-onboarding-screens-for-mobile-app-templates-customers-shopping-and-paying-at-website-of-store-ui-ux-gui-user-interface-kit-with-people-scenes-for-web-design-illustration-vector.jpg',
-            description: 'Complete Figma design system for e-commerce applications including 50+ components and 10 page templates. Created with a mobile-first approach and accessibility in mind.',
-            tech: '<h4>Tools Used:</h4><ul style="list-style-type: none; padding-left: 0;"><li>Figma</li><li>Adobe Illustrator</li><li>Photoshop</li></ul>',
-            link: 'https://www.figma.com/design/J28yayorwVugrSM1m9rbrE/Untitled?node-id=0-1&p=f'
-          },
-          'design2': {
-            title: 'Brand Identity Package',
-            image: 'https://static.vecteezy.com/system/resources/previews/016/386/791/original/brand-identity-design-for-office-stationery-with-black-and-red-shapes-corporate-business-identity-template-bundle-with-creative-branding-shapes-business-promotional-stationery-design-for-branding-vector.jpg',
-            description: 'Complete branding package including logo design, color palette, typography system, and brand guidelines. Developed for a tech startup focusing on clean, modern aesthetics.',
-            tech: '<h4>Tools Used:</h4><ul style="list-style-type: none; padding-left: 0;"><li>Adobe Illustrator</li><li>Photoshop</li><li>InDesign</li></ul>',
-            link: '#'
-          },
-          'design3': {
-            title: 'Fitness Mobile App',
-            image: 'https://cdn.dribbble.com/users/5261465/screenshots/14133459/media/e8a80d1cee14f0cde48a75d63489bea2.jpg',
-            description: 'UI/UX design for a fitness tracking mobile application with workout plans, nutrition tracking, and progress analytics. Designed with a focus on user motivation and engagement.',
-            tech: '<h4>Tools Used:</h4><ul style="list-style-type: none; padding-left: 0;"><li>Figma</li><li>Adobe XD</li><li>Illustrator</li></ul>',
-            link: '#'
-          }
-        };
+        const modalContent = document.getElementById('modal-content');
         
-        const project = projects[projectId];
-        document.getElementById('modalTitle').textContent = project.title;
-        document.getElementById('modalImage').src = project.image;
-        document.getElementById('modalDescription').textContent = project.description;
-        document.getElementById('modalTechStack').innerHTML = project.tech;
-        document.getElementById('modalLink').href = project.link;
+        function openModal(projectId) {
+            const projects = {
+                'design1': {
+                    title: 'E-commerce UI Kit',
+                    image: 'https://static.vecteezy.com/system/resources/previews/004/946/889/original/e-commerce-concept-onboarding-screens-for-mobile-app-templates-customers-shopping-and-paying-at-website-of-store-ui-ux-gui-user-interface-kit-with-people-scenes-for-web-design-illustration-vector.jpg',
+                    description: 'Complete Figma design system for e-commerce applications including 50+ components and 10 page templates. Created with a mobile-first approach and accessibility in mind.',
+                    tech: '<strong>Tools Used:</strong> Figma, Adobe Illustrator, Photoshop',
+                    link: 'https://www.figma.com/design/J28yayorwVugrSM1m9rbrE/Untitled?node-id=0-1&p=f'
+                },
+                'design2': {
+                    title: 'Brand Identity Package',
+                    image: 'https://static.vecteezy.com/system/resources/previews/016/386/791/original/brand-identity-design-for-office-stationery-with-black-and-red-shapes-corporate-business-identity-template-bundle-with-creative-branding-shapes-business-promotional-stationery-design-for-branding-vector.jpg',
+                    description: 'Complete branding package including logo design, color palette, typography system, and brand guidelines. Developed for a tech startup focusing on clean, modern aesthetics.',
+                    tech: '<strong>Tools Used:</strong> Adobe Illustrator, Photoshop, InDesign',
+                    link: '#'
+                },
+                'design3': {
+                    title: 'Fitness Mobile App',
+                    image: 'https://cdn.dribbble.com/users/5261465/screenshots/14133459/media/e8a80d1cee14f0cde48a75d63489bea2.jpg',
+                    description: 'UI/UX design for a fitness tracking mobile application with workout plans, nutrition tracking, and progress analytics. Designed with a focus on user motivation and engagement.',
+                    tech: '<strong>Tools Used:</strong> Figma, Adobe XD, Illustrator',
+                    link: '#'
+                }
+            };
+            
+            const project = projects[projectId];
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalImage').src = project.image;
+            document.getElementById('modalDescription').textContent = project.description;
+            document.getElementById('modalTechStack').innerHTML = project.tech;
+            document.getElementById('modalLink').href = project.link;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+              modalContent.classList.remove('scale-95', 'opacity-0');
+            }, 50);
+        }
         
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-      }
-      
-      function closeModal() {
-        document.getElementById('projectModal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
-      
-      // Close modal when clicking outside
-      window.onclick = function(event) {
-        const modal = document.getElementById('projectModal');
-        if (event.target == modal) {
-          closeModal();
+        function closeModal() {
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+              modal.classList.add('hidden');
+              modal.classList.remove('flex');
+              document.body.style.overflow = 'auto';
+            }, 300);
         }
-      }
-      
-      // Close modal with Escape key
-      document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-          closeModal();
-        }
-      });
-      // Rest of JavaScript remains same
+        
+        // Close modal on outside click or escape key
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
     </script>
-  </body>
+</body>
 </html>
