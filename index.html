@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,23 +12,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --bg-light: #ffffff;
-            --text-dark: #e2e8f0;
-            --text-light: #1e293b;
-            --card-dark: #1e293b;
-            --card-light: #f1f5f9;
-            --primary-dark: #818cf8;
-            --primary-light: #2563eb;
-            --border-dark: #334155;
-            --border-light: #cbd5e1;
+            --bg-dark: #111827;
+            --bg-light: #f9fafb;
+            --text-dark: #d1d5db;
+            --text-light: #1f2937;
+            --card-dark: #1f2937;
+            --card-light: #ffffff;
+            --primary-gradient-start: #2dd4bf;
+            --primary-gradient-end: #a78bfa;
+            --border-dark: #374151;
+            --border-light: #e5e7eb;
         }
 
         [data-theme="dark"] {
             --bg-color: var(--bg-dark);
             --text-color: var(--text-dark);
             --card-bg: var(--card-dark);
-            --primary-color: var(--primary-dark);
             --border-color: var(--border-dark);
         }
 
@@ -37,7 +35,6 @@
             --bg-color: var(--bg-light);
             --text-color: var(--text-light);
             --card-bg: var(--card-light);
-            --primary-color: var(--primary-light);
             --border-color: var(--border-light);
         }
 
@@ -46,6 +43,21 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: background-color 0.3s, color 0.3s;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+        }
+        
+        .gradient-border {
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
         }
 
         /* Custom scrollbar */
@@ -67,21 +79,21 @@
         .nav-link::after {
             content: ''; position: absolute; width: 100%;
             transform: scaleX(0); height: 2px; bottom: -6px; left: 0;
-            background-color: var(--primary-color);
+            background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
             transform-origin: bottom right; transition: transform 0.25s ease-out;
         }
         .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); transform-origin: bottom left; }
-        .nav-link.active { color: var(--primary-color) !important; }
+        .nav-link.active { color: var(--primary-gradient-start) !important; }
         
         /* Glassmorphism Effect */
         .glass-effect {
-            background: rgba(23, 23, 23, 0.6);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         [data-theme="light"] .glass-effect {
             background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         /* Timeline */
@@ -93,15 +105,17 @@
         .timeline-dot {
             position: absolute; left: -9px; top: 4px; height: 18px; width: 18px;
             background-color: var(--bg-color); border-radius: 50%;
-            border: 3px solid var(--primary-color);
+            border: 3px solid var(--primary-gradient-start);
             transition: background-color 0.3s, border-color 0.3s;
         }
 
         /* Typing cursor */
-        .typed-cursor { color: var(--primary-color); }
+        .typed-cursor { color: var(--primary-gradient-start); }
         
         .section-title {
-            color: var(--primary-color);
+           background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .card {
@@ -112,7 +126,7 @@
 
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 0 25px rgba(45, 212, 191, 0.3), 0 0 25px rgba(167, 139, 250, 0.3);
         }
     </style>
 </head>
@@ -121,15 +135,15 @@
 
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold logo-sj" style="color: var(--primary-color);">SJ</a>
+            <a href="#home" class="text-2xl font-bold logo-sj gradient-text">SJ</a>
             <div class="hidden md:flex space-x-8 items-center">
-                <a href="#about" class="nav-link text-slate-300 hover:text-sky-400">About</a>
-                <a href="#experience" class="nav-link text-slate-300 hover:text-sky-400">Experience</a>
-                <a href="#education" class="nav-link text-slate-300 hover:text-sky-400">Education</a>
-                <a href="#skills" class="nav-link text-slate-300 hover:text-sky-400">Skills</a>
-                <a href="#projects" class="nav-link text-slate-300 hover:text-sky-400">Projects</a>
-                <a href="#certifications" class="nav-link text-slate-300 hover:text-sky-400">Certifications</a>
-                <a href="#contact" class="nav-link text-slate-300 hover:text-sky-400">Contact</a>
+                <a href="#about" class="nav-link text-slate-300 hover:text-teal-300">About</a>
+                <a href="#experience" class="nav-link text-slate-300 hover:text-teal-300">Experience</a>
+                <a href="#education" class="nav-link text-slate-300 hover:text-teal-300">Education</a>
+                <a href="#skills" class="nav-link text-slate-300 hover:text-teal-300">Skills</a>
+                <a href="#projects" class="nav-link text-slate-300 hover:text-teal-300">Projects</a>
+                <a href="#certifications" class="nav-link text-slate-300 hover:text-teal-300">Certifications</a>
+                <a href="#contact" class="nav-link text-slate-300 hover:text-teal-300">Contact</a>
                 <button id="theme-toggle" class="text-xl p-2 rounded-full focus:outline-none">
                     <i class="fas fa-sun"></i>
                 </button>
@@ -140,7 +154,7 @@
                 </button>
             </div>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-900/80 backdrop-blur-sm">
+        <div id="mobile-menu" class="hidden md:hidden">
             <a href="#about" class="block text-center py-3 text-lg nav-link">About</a>
             <a href="#experience" class="block text-center py-3 text-lg nav-link">Experience</a>
             <a href="#education" class="block text-center py-3 text-lg nav-link">Education</a>
@@ -158,26 +172,26 @@
 
         <section id="home" class="min-h-[80vh] container mx-auto px-6 flex flex-col md:flex-row items-center justify-center text-center md:text-left">
             <div class="md:w-1/2 md:pr-10">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4">Sachchidanand Jha</h1>
-                <p class="text-2xl mb-6" style="color: var(--primary-color);">I'm a <span id="typed-text"></span></p>
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 gradient-text">Sachchidanand Jha</h1>
+                <p class="text-2xl mb-6 text-slate-300">I'm a <span id="typed-text" class="gradient-text"></span></p>
                 <p class="mb-8 max-w-lg mx-auto md:mx-0">Recent Computer Science graduate seeking to leverage technical expertise in full-stack development, Java, and database management to build innovative software solutions.</p>
                 <div class="flex justify-center md:justify-start space-x-4">
-                    <a href="Sachchidanand_Jha_Resume.pdf" download="Sachchidanand_Jha_Resume.pdf" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                    <a href="Sachchidanand_Jha_Resume.pdf" download="Sachchidanand_Jha_Resume.pdf" class="gradient-bg text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-teal-500/50">
                         Download CV <i class="fas fa-download ml-2"></i>
                     </a>
-                    <a href="#contact" class="border-2 border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                    <a href="#contact" class="border-2 gradient-border text-teal-300 hover:gradient-bg hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
                         Contact Me
                     </a>
                 </div>
                  <div class="mt-8 flex justify-center md:justify-start space-x-6">
-                    <a href="https://www.linkedin.com/in/sachchidanand-jha-b8b3a3250/" target="_blank" aria-label="LinkedIn" class="text-3xl hover:text-indigo-400 transition transform hover:scale-110"><i class="fab fa-linkedin"></i></a>
-                    <a href="mailto:Sachchidanandjha1607@gmail.com" aria-label="Email" class="text-3xl hover:text-indigo-400 transition transform hover:scale-110"><i class="fas fa-envelope"></i></a>
-                    <a href="tel:+918533099925" aria-label="Phone" class="text-3xl hover:text-indigo-400 transition transform hover:scale-110"><i class="fas fa-phone"></i></a>
-                    <a href="https://github.com/Sachchidanandj16" target="_blank" aria-label="GitHub" class="text-3xl hover:text-indigo-400 transition transform hover:scale-110"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/sachchidanand-jha-b8b3a3250/" target="_blank" aria-label="LinkedIn" class="text-3xl hover:text-teal-300 transition transform hover:scale-110"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:Sachchidanandjha1607@gmail.com" aria-label="Email" class="text-3xl hover:text-teal-300 transition transform hover:scale-110"><i class="fas fa-envelope"></i></a>
+                    <a href="tel:+918533099925" aria-label="Phone" class="text-3xl hover:text-teal-300 transition transform hover:scale-110"><i class="fas fa-phone"></i></a>
+                    <a href="https://github.com/Sachchidanandj16" target="_blank" aria-label="GitHub" class="text-3xl hover:text-teal-300 transition transform hover:scale-110"><i class="fab fa-github"></i></a>
                 </div>
             </div>
             <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">
-                 <img src="20241008_141834.jpg" alt="Sachchidanand Jha" class="w-72 h-72 md:w-96 md:h-96 rounded-full object-cover border-4" style="border-color: var(--primary-color);">
+                 <img src="20241008_141834.jpg" alt="Sachchidanand Jha" class="w-72 h-72 md:w-96 md:h-96 rounded-full object-cover border-4" style="border-color: var(--primary-gradient-start);">
             </div>
         </section>
 
@@ -242,33 +256,33 @@
                 <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">My Skills</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="card p-8 rounded-lg scroll-animate">
-                        <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--primary-color);">Technical</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-center gradient-text">Technical</h3>
                         <ul class="space-y-3 text-lg">
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Java</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>MERN Stack (MongoDB, Express, React, Node.js)</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>HTML5, CSS3, JavaScript</li>
-                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Python</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>MySQL & JDBC</li>
-                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Big Data Technologies</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Java</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>MERN Stack</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>HTML5, CSS3, JS</li>
+                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Python</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>MySQL & JDBC</li>
+                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Big Data</li>
                         </ul>
                     </div>
                      <div class="card p-8 rounded-lg scroll-animate">
-                        <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--primary-color);">Design Tools</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-center gradient-text">Design Tools</h3>
                         <ul class="space-y-3 text-lg">
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>UI/UX Design Principles</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Figma</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Adobe Illustrator</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Adobe Photoshop</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Graphic & Logo Design</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>UI/UX Design</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Figma</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Adobe Illustrator</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Adobe Photoshop</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Graphic Design</li>
                         </ul>
                     </div>
                     <div class="card p-8 rounded-lg scroll-animate md:col-span-2 lg:col-span-1">
-                        <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--primary-color);">Professional</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-center gradient-text">Professional</h3>
                         <ul class="space-y-3 text-lg">
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Effective Leadership</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Problem Solving</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Teamwork & Collaboration</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Adaptability</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Leadership</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Problem Solving</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Teamwork</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Adaptability</li>
                         </ul>
                     </div>
                 </div>
@@ -282,9 +296,9 @@
                 <div class="flex justify-center">
                     <div class="card rounded-lg overflow-hidden scroll-animate max-w-2xl">
                         <div class="p-8">
-                            <h3 class="text-2xl font-bold mb-2" style="color: var(--primary-color);">Book Store Application</h3>
+                            <h3 class="text-2xl font-bold mb-2 gradient-text">Book Store Application</h3>
                              <p class="text-sm text-slate-500 mb-4">July 2023</p>
-                            <ul class="space-y-3 mb-6 list-disc list-inside">
+                            <ul class="space-y-3 mb-6 list-disc list-inside text-slate-400">
                                 <li>Developed a full-stack web application using the MERN stack (MongoDB, Express.js, React.js, Node.js).</li>
                                 <li>Implemented key features including user authentication, shopping cart functionality, and a fully responsive design.</li>
                                 <li>Created RESTful APIs for book inventory management, supporting 50+ concurrent users.</li>
@@ -358,18 +372,18 @@
                 <div class="max-w-3xl mx-auto card p-8 rounded-lg scroll-animate">
                     <form action="https://formspree.io/f/your-form-id" method="POST"> <div class="mb-6">
                             <label for="name" class="block mb-2 text-sm font-medium">Your Name</label>
-                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
                         </div>
                          <div class="mb-6">
                             <label for="email" class="block mb-2 text-sm font-medium">Your Email</label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
                         </div>
                         <div class="mb-6">
                             <label for="message" class="block mb-2 text-sm font-medium">Message</label>
-                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500"></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+                            <button type="submit" class="gradient-bg text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-teal-500/50">
                                 Send Message
                             </button>
                         </div>
@@ -389,10 +403,10 @@
       <div id="modal-content" class="card max-w-2xl w-11/12 rounded-lg p-6 relative transform transition-all duration-300 scale-95 opacity-0">
         <button onclick="closeModal()" class="absolute -top-3 -right-3 h-8 w-8 bg-red-500 text-white rounded-full">&times;</button>
         <img id="modalImage" src="" alt="Project Image" class="w-full h-auto rounded-lg mb-4 max-h-80 object-contain">
-        <h2 id="modalTitle" class="text-2xl font-bold mb-2" style="color: var(--primary-color);"></h2>
+        <h2 id="modalTitle" class="text-2xl font-bold mb-2 gradient-text"></h2>
         <p id="modalDescription" class="mb-4"></p>
         <div id="modalTechStack" class="mb-4"></div>
-        <a id="modalLink" href="#" target="_blank" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-5 rounded-lg transition">View Project</a>
+        <a id="modalLink" href="#" target="_blank" class="inline-block gradient-bg text-white font-bold py-2 px-5 rounded-lg transition">View Project</a>
       </div>
     </div>
 
