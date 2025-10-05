@@ -89,7 +89,7 @@
             position: relative; padding-left: 3rem; padding-bottom: 2rem;
             border-left: 2px solid var(--border-color);
         }
-        .timeline-item:last-child { border-left: 2px solid transparent; }
+        .timeline-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
         .timeline-dot {
             position: absolute; left: -9px; top: 4px; height: 18px; width: 18px;
             background-color: var(--bg-color); border-radius: 50%;
@@ -119,12 +119,13 @@
 
 <body data-theme="dark" class="antialiased">
 
-    <!-- Header & Navigation -->
     <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-bold logo-sj" style="color: var(--primary-color);">SJ</a>
             <div class="hidden md:flex space-x-8 items-center">
                 <a href="#about" class="nav-link text-slate-300 hover:text-sky-400">About</a>
+                <a href="#experience" class="nav-link text-slate-300 hover:text-sky-400">Experience</a>
+                <a href="#education" class="nav-link text-slate-300 hover:text-sky-400">Education</a>
                 <a href="#skills" class="nav-link text-slate-300 hover:text-sky-400">Skills</a>
                 <a href="#projects" class="nav-link text-slate-300 hover:text-sky-400">Projects</a>
                 <a href="#certifications" class="nav-link text-slate-300 hover:text-sky-400">Certifications</a>
@@ -139,9 +140,10 @@
                 </button>
             </div>
         </nav>
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-gray-900/80 backdrop-blur-sm">
             <a href="#about" class="block text-center py-3 text-lg nav-link">About</a>
+            <a href="#experience" class="block text-center py-3 text-lg nav-link">Experience</a>
+            <a href="#education" class="block text-center py-3 text-lg nav-link">Education</a>
             <a href="#skills" class="block text-center py-3 text-lg nav-link">Skills</a>
             <a href="#projects" class="block text-center py-3 text-lg nav-link">Projects</a>
             <a href="#certifications" class="block text-center py-3 text-lg nav-link">Certifications</a>
@@ -154,14 +156,13 @@
 
     <main class="pt-24">
 
-        <!-- Hero Section -->
         <section id="home" class="min-h-[80vh] container mx-auto px-6 flex flex-col md:flex-row items-center justify-center text-center md:text-left">
             <div class="md:w-1/2 md:pr-10">
                 <h1 class="text-4xl md:text-6xl font-bold mb-4">Sachchidanand Jha</h1>
                 <p class="text-2xl mb-6" style="color: var(--primary-color);">I'm a <span id="typed-text"></span></p>
-                <p class="mb-8 max-w-lg mx-auto md:mx-0">Computer Science student passionate about creating beautiful and functional digital experiences that solve real-world problems.</p>
+                <p class="mb-8 max-w-lg mx-auto md:mx-0">Recent Computer Science graduate seeking to leverage technical expertise in full-stack development, Java, and database management to build innovative software solutions.</p>
                 <div class="flex justify-center md:justify-start space-x-4">
-                    <a href="SachchidanandJha_CS_GLAU.pdf" download="Sachchidanand_Jha_Resume.pdf" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                    <a href="Sachchidanand_Jha_Resume.pdf" download="Sachchidanand_Jha_Resume.pdf" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
                         Download CV <i class="fas fa-download ml-2"></i>
                     </a>
                     <a href="#contact" class="border-2 border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
@@ -180,98 +181,124 @@
             </div>
         </section>
 
-        <!-- About & Education Section -->
-        <section id="about" class="py-20">
+        <section id="about" class="py-20" style="background-color: var(--card-bg);">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">About Me</h2>
+                <div class="max-w-4xl mx-auto text-center scroll-animate">
+                    <p class="text-lg text-slate-300 mb-6">I am a recent B.Tech Computer Science graduate with hands-on experience in full-stack development using the MERN stack. I have a proven ability to design and implement web applications, backed by a strong foundation in Java and database management. My goal is to apply my technical expertise and problem-solving abilities to contribute to impactful software development projects.</p>
+                    <p class="text-lg text-slate-300">Beyond coding, I have demonstrated leadership skills as Secretary of the NSS Society, Vice-President of the ChemGLA club, and Design Team Lead for Google Developer Groups, experiences that have honed my teamwork and communication abilities.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="experience" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">Internship & Training</h2>
+                <div class="max-w-3xl mx-auto scroll-animate">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-xl font-bold mb-1">Trainee - Job Oriented Value-Added Course</h3>
+                        <p class="text-slate-400 mb-2">GLA University, Mathura</p>
+                        <ul class="list-disc list-inside text-slate-400 space-y-2">
+                            <li>Mastered core web technologies including HTML5, CSS3, and JavaScript.</li>
+                            <li>Developed a responsive e-commerce web application using MERN stack architecture.</li>
+                            <li>Implemented a user authentication system with JWT tokens and secure payment processing.</li>
+                            <li>Collaborated with a 5-member development team following Agile methodologies.</li>
+                        </ul>
+                        <p class="text-sm text-slate-500 mt-2">June 2023 - July 2023</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-20" style="background-color: var(--card-bg);">
             <div class="container mx-auto px-6">
                  <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">Education</h2>
                 <div class="max-w-3xl mx-auto scroll-animate">
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
-                        <h3 class="text-xl font-bold mb-1">Bachelor of Engineering in Computer Science</h3>
-                        <p class="text-slate-400 mb-1">GLA University, Mathura (6.70 CGPA)</p>
-                        <p class="text-sm text-slate-500">Expected June 2025</p>
+                        <h3 class="text-xl font-bold mb-1">Bachelor of Technology in Computer Science</h3>
+                        <p class="text-slate-400 mb-1">GLA University, Mathura (6.7 CGPA)</p>
+                        <p class="text-sm text-slate-500">June 2025</p>
                     </div>
                      <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <h3 class="text-xl font-bold mb-1">Intermediate (12th Grade)</h3>
-                        <p class="text-slate-400 mb-1">PDD Saraswati Vidya Mandir, Vrindavan (68.2%)</p>
+                        <p class="text-slate-400 mb-1">PDDSVM, Vrindavan (66.5%)</p>
                         <p class="text-sm text-slate-500">May 2021</p>
                     </div>
                      <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <h3 class="text-xl font-bold mb-1">High School (10th Grade)</h3>
-                        <p class="text-slate-400 mb-1">PDD Saraswati Vidya Mandir, Vrindavan (75.8%)</p>
-                        <p class="text-sm text-slate-500">May 2020</p>
+                        <p class="text-slate-400 mb-1">PDDSVM, Vrindavan (74.8%)</p>
+                        <p class="text-sm text-slate-500">May 2019</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="py-20" style="background-color: var(--card-bg);">
+        <section id="skills" class="py-20">
             <div class="container mx-auto px-6">
                 <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">My Skills</h2>
-                <div class="grid md:grid-cols-2 gap-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="card p-8 rounded-lg scroll-animate">
                         <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--primary-color);">Technical</h3>
                         <ul class="space-y-3 text-lg">
                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Java</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>HTML/CSS/JavaScript</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>MERN Stack</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>MySQL</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Linux</li>
-                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Big Data</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>MERN Stack (MongoDB, Express, React, Node.js)</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>HTML5, CSS3, JavaScript</li>
+                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Python</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>MySQL & JDBC</li>
+                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Big Data Technologies</li>
                         </ul>
                     </div>
                      <div class="card p-8 rounded-lg scroll-animate">
-                        <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--primary-color);">Design</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--primary-color);">Design Tools</h3>
                         <ul class="space-y-3 text-lg">
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>UI/UX Design</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Graphic & Logo Design</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>UI/UX Design Principles</li>
                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Figma</li>
                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Adobe Illustrator</li>
                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Adobe Photoshop</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Graphic & Logo Design</li>
+                        </ul>
+                    </div>
+                    <div class="card p-8 rounded-lg scroll-animate md:col-span-2 lg:col-span-1">
+                        <h3 class="text-2xl font-bold mb-4 text-center" style="color: var(--primary-color);">Professional</h3>
+                        <ul class="space-y-3 text-lg">
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Effective Leadership</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Problem Solving</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Teamwork & Collaboration</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-green-400"></i>Adaptability</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-20">
+        <section id="projects" class="py-20" style="background-color: var(--card-bg);">
             <div class="container mx-auto px-6">
-                <h2 class="section-title text-4xl font-bold text-center mb-4 scroll-animate">Development Projects</h2>
-                 <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 scroll-animate">Here are some of the projects I've built, showcasing my skills in full-stack development.</p>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="card rounded-lg overflow-hidden scroll-animate">
+                <h2 class="section-title text-4xl font-bold text-center mb-4 scroll-animate">Development Project</h2>
+                 <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 scroll-animate">Here is a project I've built that showcases my skills in full-stack development.</p>
+                <div class="flex justify-center">
+                    <div class="card rounded-lg overflow-hidden scroll-animate max-w-2xl">
                         <div class="p-8">
                             <h3 class="text-2xl font-bold mb-2" style="color: var(--primary-color);">Book Store Application</h3>
                              <p class="text-sm text-slate-500 mb-4">July 2023</p>
-                            <ul class="space-y-2 mb-6 list-disc list-inside">
-                                <li>Full-stack e-commerce solution for books.</li>
-                                <li>Features: User authentication, inventory management, advanced search, and admin dashboard.</li>
+                            <ul class="space-y-3 mb-6 list-disc list-inside">
+                                <li>Developed a full-stack web application using the MERN stack (MongoDB, Express.js, React.js, Node.js).</li>
+                                <li>Implemented key features including user authentication, shopping cart functionality, and a fully responsive design.</li>
+                                <li>Created RESTful APIs for book inventory management, supporting 50+ concurrent users.</li>
+                                <li>Optimized database queries, which resulted in 40% faster page loading times.</li>
+                                <li>Successfully deployed the application, achieving 99% uptime performance metrics.</li>
                             </ul>
                              <p class="font-semibold"><strong>Tech Stack:</strong> MERN (MongoDB, Express, React, Node.js)</p>
-                        </div>
-                    </div>
-                    <div class="card rounded-lg overflow-hidden scroll-animate">
-                        <div class="p-8">
-                            <h3 class="text-2xl font-bold mb-2" style="color: var(--primary-color);">E-commerce Platform</h3>
-                             <p class="text-sm text-slate-500 mb-4">July 2023</p>
-                             <ul class="space-y-2 mb-6 list-disc list-inside">
-                                <li>Complete online shopping solution with categories and reviews.</li>
-                                <li>Integrated Razorpay payment gateway.</li>
-                                <li>Fully responsive, mobile-first design.</li>
-                            </ul>
-                            <p class="font-semibold"><strong>Tech Stack:</strong> MERN with Redux for state management.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Design Portfolio Section -->
-        <section id="design-portfolio" class="py-20" style="background-color: var(--card-bg);">
+        <section id="design-portfolio" class="py-20">
              <div class="container mx-auto px-6">
                 <h2 class="section-title text-4xl font-bold text-center mb-4 scroll-animate">Design Portfolio</h2>
                 <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 scroll-animate">A selection of my design work, from UI/UX to branding.</p>
@@ -301,38 +328,35 @@
             </div>
         </section>
 
-        <!-- Certifications -->
-        <section id="certifications" class="py-20">
+        <section id="certifications" class="py-20" style="background-color: var(--card-bg);">
             <div class="container mx-auto px-6">
                  <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">Certifications</h2>
                 <div class="flex flex-wrap justify-center items-center gap-8">
-                    <a href="https://www.linkedin.com/posts/sachchidanand-jha-b8b3a3250_certificate-of-completion-activity-7297002775555555328-7OCM" target="_blank" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
+                    <a href="https://www.linkedin.com/posts/sachchidanand-jha-b8b3a3250_certificate-of-completion-activity-7297002775555555328-7OCM" title="Java Foundations by JetBrains" target="_blank" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
                         <img src="https://www.moosoft.com/wp-content/uploads/2018/05/Java-logo-150x150.png" alt="Java Certification" class="h-24 w-24 object-contain">
                     </a>
-                     <a href="#" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
-                        <img src="https://geeksterminal.com/wp-content/uploads/2015/05/logo-ubuntu-150x150.png" alt="Linux Certification" class="h-24 w-24 object-contain">
+                     <a href="#" title="Software Engineer Intern by HackerRank" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/HackerRank_Icon-1000px.png/800px-HackerRank_Icon-1000px.png" alt="HackerRank Certification" class="h-24 w-24 object-contain">
                     </a>
-                     <a href="#" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
+                     <a href="#" title="Illustrator 2024 Essential Training" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
                         <img src="https://www.geojournalism.org/wp-content/uploads/2013/08/AIllustrator-150x150.png" alt="Illustrator Certification" class="h-24 w-24 object-contain">
                     </a>
-                    <a href="https://drive.google.com/file/d/1d4GOs-1CFXUFriS0XAptyNDBKC_HJurS/view?usp=sharing" target="_blank" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
+                    <a href="https://drive.google.com/file/d/1d4GOs-1CFXUFriS0XAptyNDBKC_HJurS/view?usp=sharing" title="Big Data Technologies by CDAC" target="_blank" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
                         <img src="https://datastone.com.br/wp-content/uploads/2023/07/Mas-afinal-o-que-e-Big-Data-150x150.jpg" alt="Big Data Certification" class="h-24 w-24 object-contain">
                     </a>
-                     <a href="#" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
-                        <img src="https://logicappsv2resources.blob.core.windows.net/icons/jdbc.png" alt="Database Certification" class="h-24 w-24 object-contain">
+                     <a href="#" title="Learning JDBC by Frank Moley" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
+                        <img src="https://logicappsv2resources.blob.core.windows.net/icons/jdbc.png" alt="JDBC Certification" class="h-24 w-24 object-contain">
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-20" style="background-color: var(--card-bg);">
+        <section id="contact" class="py-20">
             <div class="container mx-auto px-6">
                 <h2 class="section-title text-4xl font-bold text-center mb-4 scroll-animate">Get In Touch</h2>
                 <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 scroll-animate">Have a project in mind or just want to say hi? Feel free to send me a message.</p>
                 <div class="max-w-3xl mx-auto card p-8 rounded-lg scroll-animate">
-                    <form action="https://formspree.io/f/your-form-id" method="POST"> <!-- Replace with your Formspree ID -->
-                        <div class="mb-6">
+                    <form action="https://formspree.io/f/your-form-id" method="POST"> <div class="mb-6">
                             <label for="name" class="block mb-2 text-sm font-medium">Your Name</label>
                             <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         </div>
@@ -361,7 +385,6 @@
         </div>
     </footer>
     
-    <!-- Modal -->
     <div id="projectModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
       <div id="modal-content" class="card max-w-2xl w-11/12 rounded-lg p-6 relative transform transition-all duration-300 scale-95 opacity-0">
         <button onclick="closeModal()" class="absolute -top-3 -right-3 h-8 w-8 bg-red-500 text-white rounded-full">&times;</button>
@@ -444,23 +467,23 @@
             
             // Active Nav Link on Scroll
              const sections = document.querySelectorAll('section[id]');
-             const navLinks = document.querySelectorAll('.nav-link');
+             const navLinks = document.querySelectorAll('nav a.nav-link');
              
              window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if(pageYOffset >= sectionTop - 100) {
-                        current = section.getAttribute('id');
-                    }
-                });
+                 let current = '';
+                 sections.forEach(section => {
+                     const sectionTop = section.offsetTop;
+                     if(pageYOffset >= sectionTop - 100) {
+                         current = section.getAttribute('id');
+                     }
+                 });
 
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if(link.getAttribute('href').includes(current)) {
-                        link.classList.add('active');
-                    }
-                });
+                 navLinks.forEach(link => {
+                     link.classList.remove('active');
+                     if(link.getAttribute('href').includes(current)) {
+                         link.classList.add('active');
+                     }
+                 });
              });
         });
         
@@ -475,7 +498,7 @@
                     image: 'https://static.vecteezy.com/system/resources/previews/004/946/889/original/e-commerce-concept-onboarding-screens-for-mobile-app-templates-customers-shopping-and-paying-at-website-of-store-ui-ux-gui-user-interface-kit-with-people-scenes-for-web-design-illustration-vector.jpg',
                     description: 'Complete Figma design system for e-commerce applications including 50+ components and 10 page templates. Created with a mobile-first approach and accessibility in mind.',
                     tech: '<strong>Tools Used:</strong> Figma, Adobe Illustrator, Photoshop',
-                    link: 'https://www.figma.com/design/J28yayorwVugrSM1m9rbrE/Untitled?node-id=0-1&p=f'
+                    link: 'https://www.figma.com/design/J28yayorwVugrSM1m9rbrE/Untitled?node-id=0-1&t=BWyZtXo8UKjQ2YxP-1'
                 },
                 'design2': {
                     title: 'Brand Identity Package',
