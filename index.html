@@ -3,25 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sachchidanand Jha | Portfolio</title>
+    <title>Sachchidanand Jha | Software Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #111827;
-            --bg-light: #f9fafb;
-            --text-dark: #d1d5db;
-            --text-light: #1f2937;
-            --card-dark: #1f2937;
+            --bg-dark: #121212;
+            --bg-light: #f9f9f9;
+            --text-dark: #ffffff;
+            --text-light: #000000;
+            --card-dark: #1e1e1e;
             --card-light: #ffffff;
-            --primary-gradient-start: #2dd4bf;
-            --primary-gradient-end: #a78bfa;
-            --border-dark: #374151;
-            --border-light: #e5e7eb;
+            --primary-accent: #007aff;
+            --border-dark: #333333;
+            --border-light: #e5e5e5;
         }
 
         [data-theme="dark"] {
@@ -45,408 +43,152 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .gradient-text {
-            background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .nav-link {
+            transition: color 0.3s;
+            position: relative;
         }
-
-        .gradient-bg {
-            background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
-        }
-        
-        .gradient-border {
-            border-image-slice: 1;
-            border-image-source: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--card-dark); }
-        ::-webkit-scrollbar-thumb { background: #4a5568; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #718096; }
-
-        /* Scroll Animation */
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .scroll-animate.in-view { opacity: 1; transform: translateY(0); }
-
-        /* Nav Link Underline Effect */
-        .nav-link { position: relative; transition: color 0.3s; }
-        .nav-link::after {
-            content: ''; position: absolute; width: 100%;
-            transform: scaleX(0); height: 2px; bottom: -6px; left: 0;
-            background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
-            transform-origin: bottom right; transition: transform 0.25s ease-out;
-        }
-        .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); transform-origin: bottom left; }
-        .nav-link.active { color: var(--primary-gradient-start) !important; }
-        
-        /* Glassmorphism Effect */
-        .glass-effect {
-            background: rgba(17, 24, 39, 0.6);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        [data-theme="light"] .glass-effect {
-            background: rgba(255, 255, 255, 0.6);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        /* Timeline */
-        .timeline-item {
-            position: relative; padding-left: 3rem; padding-bottom: 2rem;
-            border-left: 2px solid var(--border-color);
-        }
-        .timeline-item:last-child { border-left: 2px solid transparent; padding-bottom: 0; }
-        .timeline-dot {
-            position: absolute; left: -9px; top: 4px; height: 18px; width: 18px;
-            background-color: var(--bg-color); border-radius: 50%;
-            border: 3px solid var(--primary-gradient-start);
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        /* Typing cursor */
-        .typed-cursor { color: var(--primary-gradient-start); }
-        
-        .section-title {
-           background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .nav-link.active {
+            color: var(--primary-accent);
         }
 
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        [data-theme="dark"] .card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 0 25px rgba(45, 212, 191, 0.3), 0 0 25px rgba(167, 139, 250, 0.3);
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
         }
     </style>
 </head>
+<body data-theme="dark">
 
-<body data-theme="dark" class="antialiased">
-
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold logo-sj gradient-text">SJ</a>
-            <div class="hidden md:flex space-x-8 items-center">
-                <a href="#about" class="nav-link text-slate-300 hover:text-teal-300">About</a>
-                <a href="#experience" class="nav-link text-slate-300 hover:text-teal-300">Experience</a>
-                <a href="#education" class="nav-link text-slate-300 hover:text-teal-300">Education</a>
-                <a href="#skills" class="nav-link text-slate-300 hover:text-teal-300">Skills</a>
-                <a href="#projects" class="nav-link text-slate-300 hover:text-teal-300">Projects</a>
-                <a href="#certifications" class="nav-link text-slate-300 hover:text-teal-300">Certifications</a>
-                <a href="#contact" class="nav-link text-slate-300 hover:text-teal-300">Contact</a>
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-opacity-70" style="background-color: rgba(30, 30, 30, 0.7);">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold page-link">Sachchidanand Jha</a>
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="nav-link page-link active">Home</a>
+                <a href="#about" class="nav-link page-link">About</a>
+                <a href="#projects" class="nav-link page-link">Projects</a>
+                <a href="#contact" class="nav-link page-link">Contact</a>
                 <button id="theme-toggle" class="text-xl p-2 rounded-full focus:outline-none">
                     <i class="fas fa-sun"></i>
                 </button>
-            </div>
+            </nav>
             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-2xl">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <button id="mobile-menu-button" class="text-2xl"><i class="fas fa-bars"></i></button>
             </div>
-        </nav>
+        </div>
         <div id="mobile-menu" class="hidden md:hidden">
-            <a href="#about" class="block text-center py-3 text-lg nav-link">About</a>
-            <a href="#experience" class="block text-center py-3 text-lg nav-link">Experience</a>
-            <a href="#education" class="block text-center py-3 text-lg nav-link">Education</a>
-            <a href="#skills" class="block text-center py-3 text-lg nav-link">Skills</a>
-            <a href="#projects" class="block text-center py-3 text-lg nav-link">Projects</a>
-            <a href="#certifications" class="block text-center py-3 text-lg nav-link">Certifications</a>
-            <a href="#contact" class="block text-center py-3 text-lg nav-link">Contact</a>
-             <button id="mobile-theme-toggle" class="w-full py-3 text-xl">
-                <i class="fas fa-sun"></i>
-            </button>
+            <a href="#home" class="block text-center py-3 text-lg page-link">Home</a>
+            <a href="#about" class="block text-center py-3 text-lg page-link">About</a>
+            <a href="#projects" class="block text-center py-3 text-lg page-link">Projects</a>
+            <a href="#contact" class="block text-center py-3 text-lg page-link">Contact</a>
+            <button id="mobile-theme-toggle" class="w-full py-3 text-xl"><i class="fas fa-sun"></i></button>
         </div>
     </header>
 
-    <main class="pt-24">
+    <main class="container mx-auto px-6 pt-24">
 
-        <section id="home" class="min-h-[80vh] container mx-auto px-6 flex flex-col md:flex-row items-center justify-center text-center md:text-left">
-            <div class="md:w-1/2 md:pr-10">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4 gradient-text">Sachchidanand Jha</h1>
-                <p class="text-2xl mb-6 text-slate-300">I'm a <span id="typed-text" class="gradient-text"></span></p>
-                <p class="mb-8 max-w-lg mx-auto md:mx-0">Recent Computer Science graduate seeking to leverage technical expertise in full-stack development, Java, and database management to build innovative software solutions.</p>
-                <div class="flex justify-center md:justify-start space-x-4">
-                    <a href="Sachchidanand_Jha_Resume.pdf" download="Sachchidanand_Jha_Resume.pdf" class="gradient-bg text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-teal-500/50">
-                        Download CV <i class="fas fa-download ml-2"></i>
-                    </a>
-                    <a href="#contact" class="border-2 gradient-border text-teal-300 hover:gradient-bg hover:text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
-                        Contact Me
-                    </a>
-                </div>
-                 <div class="mt-8 flex justify-center md:justify-start space-x-6">
-                    <a href="https://www.linkedin.com/in/sachchidanand-jha-b8b3a3250/" target="_blank" aria-label="LinkedIn" class="text-3xl hover:text-teal-300 transition transform hover:scale-110"><i class="fab fa-linkedin"></i></a>
-                    <a href="mailto:Sachchidanandjha1607@gmail.com" aria-label="Email" class="text-3xl hover:text-teal-300 transition transform hover:scale-110"><i class="fas fa-envelope"></i></a>
-                    <a href="tel:+918533099925" aria-label="Phone" class="text-3xl hover:text-teal-300 transition transform hover:scale-110"><i class="fas fa-phone"></i></a>
-                    <a href="https://github.com/Sachchidanandj16" target="_blank" aria-label="GitHub" class="text-3xl hover:text-teal-300 transition transform hover:scale-110"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-            <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">
-                 <img src="20241008_141834.jpg" alt="Sachchidanand Jha" class="w-72 h-72 md:w-96 md:h-96 rounded-full object-cover border-4" style="border-color: var(--primary-gradient-start);">
-            </div>
-        </section>
-
-        <section id="about" class="py-20" style="background-color: var(--card-bg);">
-            <div class="container mx-auto px-6">
-                <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">About Me</h2>
-                <div class="max-w-4xl mx-auto text-center scroll-animate">
-                    <p class="text-lg text-slate-300 mb-6">I am a recent B.Tech Computer Science graduate with hands-on experience in full-stack development using the MERN stack. I have a proven ability to design and implement web applications, backed by a strong foundation in Java and database management. My goal is to apply my technical expertise and problem-solving abilities to contribute to impactful software development projects.</p>
-                    <p class="text-lg text-slate-300">Beyond coding, I have demonstrated leadership skills as Secretary of the NSS Society, Vice-President of the ChemGLA club, and Design Team Lead for Google Developer Groups, experiences that have honed my teamwork and communication abilities.</p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="experience" class="py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">Internship & Training</h2>
-                <div class="max-w-3xl mx-auto scroll-animate">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3 class="text-xl font-bold mb-1">Trainee - Job Oriented Value-Added Course</h3>
-                        <p class="text-slate-400 mb-2">GLA University, Mathura</p>
-                        <ul class="list-disc list-inside text-slate-400 space-y-2">
-                            <li>Mastered core web technologies including HTML5, CSS3, and JavaScript.</li>
-                            <li>Developed a responsive e-commerce web application using MERN stack architecture.</li>
-                            <li>Implemented a user authentication system with JWT tokens and secure payment processing.</li>
-                            <li>Collaborated with a 5-member development team following Agile methodologies.</li>
-                        </ul>
-                        <p class="text-sm text-slate-500 mt-2">June 2023 - July 2023</p>
-                    </div>
+        <!-- Home Page -->
+        <section id="home" class="page active min-h-screen flex flex-col justify-center">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-4">Software Engineer</h1>
+                <p class="text-xl md:text-2xl mb-8">Crafting elegant solutions to complex problems.</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#projects" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg page-link">View My Work</a>
+                    <a href="Sachchidanand_Jha_Resume.pdf" download="Sachchidanand_Jha_Resume.pdf" class="border-2 border-blue-600 text-blue-600 font-semibold py-3 px-6 rounded-lg">Download CV</a>
                 </div>
             </div>
         </section>
 
-        <section id="education" class="py-20" style="background-color: var(--card-bg);">
-            <div class="container mx-auto px-6">
-                 <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">Education</h2>
-                <div class="max-w-3xl mx-auto scroll-animate">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3 class="text-xl font-bold mb-1">Bachelor of Technology in Computer Science</h3>
-                        <p class="text-slate-400 mb-1">GLA University, Mathura (6.7 CGPA)</p>
-                        <p class="text-sm text-slate-500">June 2025</p>
-                    </div>
-                     <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3 class="text-xl font-bold mb-1">Intermediate (12th Grade)</h3>
-                        <p class="text-slate-400 mb-1">PDDSVM, Vrindavan (66.5%)</p>
-                        <p class="text-sm text-slate-500">May 2021</p>
-                    </div>
-                     <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <h3 class="text-xl font-bold mb-1">High School (10th Grade)</h3>
-                        <p class="text-slate-400 mb-1">PDDSVM, Vrindavan (74.8%)</p>
-                        <p class="text-sm text-slate-500">May 2019</p>
-                    </div>
+        <!-- About Page -->
+        <section id="about" class="page min-h-screen py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">About Me</h2>
+            <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-8 md:mb-0">
+                    <img src="20241008_141834.jpg" alt="Sachchidanand Jha" class="rounded-full w-48 h-48 mx-auto">
+                </div>
+                <div class="md:w-2/3 md:pl-12">
+                    <p class="text-lg mb-4">I am a B.Tech Computer Science student graduating in 2025, with a passion for building high-impact software. My expertise lies in full-stack development with the MERN stack, alongside a strong command of Java and Python. I thrive on solving complex algorithmic challenges and have a keen interest in system design and machine learning.</p>
+                    <p class="text-lg">My project portfolio reflects my ability to architect and develop scalable, real-world applications. I am actively seeking challenging internship opportunities where I can contribute to meaningful projects and grow as a software engineer.</p>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">My Skills</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="card p-8 rounded-lg scroll-animate">
-                        <h3 class="text-2xl font-bold mb-4 text-center gradient-text">Technical</h3>
-                        <ul class="space-y-3 text-lg">
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Java</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>MERN Stack</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>HTML5, CSS3, JS</li>
-                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Python</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>MySQL & JDBC</li>
-                             <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Big Data</li>
-                        </ul>
-                    </div>
-                     <div class="card p-8 rounded-lg scroll-animate">
-                        <h3 class="text-2xl font-bold mb-4 text-center gradient-text">Design Tools</h3>
-                        <ul class="space-y-3 text-lg">
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>UI/UX Design</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Figma</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Adobe Illustrator</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Adobe Photoshop</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Graphic Design</li>
-                        </ul>
-                    </div>
-                    <div class="card p-8 rounded-lg scroll-animate md:col-span-2 lg:col-span-1">
-                        <h3 class="text-2xl font-bold mb-4 text-center gradient-text">Professional</h3>
-                        <ul class="space-y-3 text-lg">
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Leadership</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Problem Solving</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Teamwork</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-teal-400"></i>Adaptability</li>
-                        </ul>
-                    </div>
+        <!-- Projects Page -->
+        <section id="projects" class="page min-h-screen py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">Projects</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="card p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-2">Distributed Cloud Storage System</h3>
+                    <p class="mb-4">A scalable, fault-tolerant storage system inspired by Dropbox, built with Node.js and gRPC. Features include file chunking, replication, and a load balancer for efficient data distribution.</p>
+                    <p class="font-semibold">Tech: Node.js, gRPC, MongoDB, Docker</p>
+                </div>
+                <!-- Project 2 -->
+                <div class="card p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-2">Real-Time Collaborative Code Editor</h3>
+                    <p class="mb-4">A web-based code editor allowing multiple users to code simultaneously. Implemented using WebSockets for real-time data synchronization and operational transforms to handle concurrent edits.</p>
+                    <p class="font-semibold">Tech: React, Node.js, WebSockets, Monaco Editor</p>
+                </div>
+                <!-- Project 3 -->
+                <div class="card p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-2">ML-Powered Recommendation Engine</h3>
+                    <p class="mb-4">A content recommendation engine for an e-commerce platform, developed using collaborative filtering algorithms in Python. Deployed as a microservice with a Flask API.</p>
+                    <p class="font-semibold">Tech: Python, Pandas, Scikit-learn, Flask, Docker</p>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="py-20" style="background-color: var(--card-bg);">
-            <div class="container mx-auto px-6">
-                <h2 class="section-title text-4xl font-bold text-center mb-4 scroll-animate">Development Project</h2>
-                 <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 scroll-animate">Here is a project I've built that showcases my skills in full-stack development.</p>
-                <div class="flex justify-center">
-                    <div class="card rounded-lg overflow-hidden scroll-animate max-w-2xl">
-                        <div class="p-8">
-                            <h3 class="text-2xl font-bold mb-2 gradient-text">Book Store Application</h3>
-                             <p class="text-sm text-slate-500 mb-4">July 2023</p>
-                            <ul class="space-y-3 mb-6 list-disc list-inside text-slate-400">
-                                <li>Developed a full-stack web application using the MERN stack (MongoDB, Express.js, React.js, Node.js).</li>
-                                <li>Implemented key features including user authentication, shopping cart functionality, and a fully responsive design.</li>
-                                <li>Created RESTful APIs for book inventory management, supporting 50+ concurrent users.</li>
-                                <li>Optimized database queries, which resulted in 40% faster page loading times.</li>
-                                <li>Successfully deployed the application, achieving 99% uptime performance metrics.</li>
-                            </ul>
-                             <p class="font-semibold"><strong>Tech Stack:</strong> MERN (MongoDB, Express, React, Node.js)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="design-portfolio" class="py-20">
-             <div class="container mx-auto px-6">
-                <h2 class="section-title text-4xl font-bold text-center mb-4 scroll-animate">Design Portfolio</h2>
-                <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 scroll-animate">A selection of my design work, from UI/UX to branding.</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="card group rounded-lg overflow-hidden cursor-pointer scroll-animate" onclick="openModal('design1')">
-                        <img src="https://static.vecteezy.com/system/resources/previews/004/946/889/original/e-commerce-concept-onboarding-screens-for-mobile-app-templates-customers-shopping-and-paying-at-website-of-store-ui-ux-gui-user-interface-kit-with-people-scenes-for-web-design-illustration-vector.jpg" alt="E-commerce UI Design" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold">E-commerce UI Kit</h3>
-                            <p class="text-sm text-slate-400">Figma Design System</p>
-                        </div>
-                    </div>
-                     <div class="card group rounded-lg overflow-hidden cursor-pointer scroll-animate" onclick="openModal('design2')">
-                        <img src="https://static.vecteezy.com/system/resources/previews/016/386/791/original/brand-identity-design-for-office-stationery-with-black-and-red-shapes-corporate-business-identity-template-bundle-with-creative-branding-shapes-business-promotional-stationery-design-for-branding-vector.jpg" alt="Logo Collection" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold">Brand Identity Package</h3>
-                            <p class="text-sm text-slate-400">Logo & Branding Design</p>
-                        </div>
-                    </div>
-                     <div class="card group rounded-lg overflow-hidden cursor-pointer scroll-animate" onclick="openModal('design3')">
-                        <img src="https://cdn.dribbble.com/users/5261465/screenshots/14133459/media/e8a80d1cee14f0cde48a75d63489bea2.jpg" alt="Mobile App Design" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold">Fitness Mobile App</h3>
-                            <p class="text-sm text-slate-400">UI/UX Design</p>
-                        </div>
-                    </div>
+        <!-- Contact Page -->
+        <section id="contact" class="page min-h-screen py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">Get In Touch</h2>
+            <div class="max-w-xl mx-auto text-center">
+                <p class="text-lg mb-8">I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out to me.</p>
+                <a href="mailto:Sachchidanandjha1607@gmail.com" class="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg">Say Hello</a>
+                <div class="mt-12 flex justify-center space-x-6">
+                    <a href="https://www.linkedin.com/in/sachchidanand-jha-b8b3a3250/" target="_blank" class="text-3xl"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Sachchidanandj16" target="_blank" class="text-3xl"><i class="fab fa-github"></i></a>
                 </div>
             </div>
         </section>
 
-        <section id="certifications" class="py-20" style="background-color: var(--card-bg);">
-            <div class="container mx-auto px-6">
-                 <h2 class="section-title text-4xl font-bold text-center mb-12 scroll-animate">Certifications</h2>
-                <div class="flex flex-wrap justify-center items-center gap-8">
-                    <a href="https://www.linkedin.com/posts/sachchidanand-jha-b8b3a3250_certificate-of-completion-activity-7297002775555555328-7OCM" title="Java Foundations by JetBrains" target="_blank" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
-                        <img src="https://www.moosoft.com/wp-content/uploads/2018/05/Java-logo-150x150.png" alt="Java Certification" class="h-24 w-24 object-contain">
-                    </a>
-                     <a href="#" title="Software Engineer Intern by HackerRank" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/HackerRank_Icon-1000px.png/800px-HackerRank_Icon-1000px.png" alt="HackerRank Certification" class="h-24 w-24 object-contain">
-                    </a>
-                     <a href="#" title="Illustrator 2024 Essential Training" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
-                        <img src="https://www.geojournalism.org/wp-content/uploads/2013/08/AIllustrator-150x150.png" alt="Illustrator Certification" class="h-24 w-24 object-contain">
-                    </a>
-                    <a href="https://drive.google.com/file/d/1d4GOs-1CFXUFriS0XAptyNDBKC_HJurS/view?usp=sharing" title="Big Data Technologies by CDAC" target="_blank" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
-                        <img src="https://datastone.com.br/wp-content/uploads/2023/07/Mas-afinal-o-que-e-Big-Data-150x150.jpg" alt="Big Data Certification" class="h-24 w-24 object-contain">
-                    </a>
-                     <a href="#" title="Learning JDBC by Frank Moley" class="card p-4 rounded-lg scroll-animate transition-transform transform hover:scale-110">
-                        <img src="https://logicappsv2resources.blob.core.windows.net/icons/jdbc.png" alt="JDBC Certification" class="h-24 w-24 object-contain">
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="section-title text-4xl font-bold text-center mb-4 scroll-animate">Get In Touch</h2>
-                <p class="text-center text-slate-400 max-w-2xl mx-auto mb-12 scroll-animate">Have a project in mind or just want to say hi? Feel free to send me a message.</p>
-                <div class="max-w-3xl mx-auto card p-8 rounded-lg scroll-animate">
-                    <form action="https://formspree.io/f/your-form-id" method="POST"> <div class="mb-6">
-                            <label for="name" class="block mb-2 text-sm font-medium">Your Name</label>
-                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
-                        </div>
-                         <div class="mb-6">
-                            <label for="email" class="block mb-2 text-sm font-medium">Your Email</label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
-                        </div>
-                        <div class="mb-6">
-                            <label for="message" class="block mb-2 text-sm font-medium">Message</label>
-                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500"></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="gradient-bg text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-teal-500/50">
-                                Send Message
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
     </main>
-
-    <footer class="py-8" style="background-color: var(--bg-dark);">
-        <div class="container mx-auto px-6 text-center text-slate-400">
-             <p>&copy; 2025 Sachchidanand Jha | Vrindavan, UP (281121)</p>
-        </div>
-    </footer>
-    
-    <div id="projectModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
-      <div id="modal-content" class="card max-w-2xl w-11/12 rounded-lg p-6 relative transform transition-all duration-300 scale-95 opacity-0">
-        <button onclick="closeModal()" class="absolute -top-3 -right-3 h-8 w-8 bg-red-500 text-white rounded-full">&times;</button>
-        <img id="modalImage" src="" alt="Project Image" class="w-full h-auto rounded-lg mb-4 max-h-80 object-contain">
-        <h2 id="modalTitle" class="text-2xl font-bold mb-2 gradient-text"></h2>
-        <p id="modalDescription" class="mb-4"></p>
-        <div id="modalTechStack" class="mb-4"></div>
-        <a id="modalLink" href="#" target="_blank" class="inline-block gradient-bg text-white font-bold py-2 px-5 rounded-lg transition">View Project</a>
-      </div>
-    </div>
-
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const pageLinks = document.querySelectorAll('.page-link');
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('nav .page-link');
 
-            // Typed.js Initialization
-            new Typed('#typed-text', {
-                strings: ['Full-Stack Developer.', 'UI/UX Designer.', 'Problem Solver.', 'Software Developer.'],
-                typeSpeed: 70,
-                backSpeed: 50,
-                backDelay: 2000,
-                loop: true
-            });
-
-            // Intersection Observer for scroll animations
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                        observer.unobserve(entry.target);
-                    }
+            function showPage(pageId) {
+                pages.forEach(page => {
+                    page.classList.toggle('active', page.id === pageId);
                 });
-            }, { threshold: 0.1 });
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.hash === `#${pageId}`);
+                });
+                window.scrollTo(0, 0);
+            }
 
-            document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
-            
-            // Mobile Menu Toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            
-            // Close mobile menu on link click
-            mobileMenu.addEventListener('click', (e) => {
-                if(e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-                     mobileMenu.classList.add('hidden');
-                }
+            pageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.getAttribute('href').substring(1);
+                    showPage(pageId);
+                });
             });
 
             // Theme Toggle
@@ -458,18 +200,13 @@
             const setTheme = (theme) => {
                 document.body.dataset.theme = theme;
                 localStorage.setItem('theme', theme);
-                if (theme === 'dark') {
-                    themeToggle.innerHTML = sunIcon;
-                    mobileThemeToggle.innerHTML = sunIcon;
-                } else {
-                    themeToggle.innerHTML = moonIcon;
-                    mobileThemeToggle.innerHTML = moonIcon;
-                }
+                const icon = theme === 'dark' ? sunIcon : moonIcon;
+                themeToggle.innerHTML = icon;
+                mobileThemeToggle.innerHTML = icon;
             };
 
             const toggleTheme = () => {
-                const currentTheme = document.body.dataset.theme;
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                const newTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
                 setTheme(newTheme);
             };
             
@@ -478,86 +215,23 @@
 
             const savedTheme = localStorage.getItem('theme') || 'dark';
             setTheme(savedTheme);
-            
-            // Active Nav Link on Scroll
-             const sections = document.querySelectorAll('section[id]');
-             const navLinks = document.querySelectorAll('nav a.nav-link');
-             
-             window.addEventListener('scroll', () => {
-                 let current = '';
-                 sections.forEach(section => {
-                     const sectionTop = section.offsetTop;
-                     if(pageYOffset >= sectionTop - 100) {
-                         current = section.getAttribute('id');
-                     }
-                 });
 
-                 navLinks.forEach(link => {
-                     link.classList.remove('active');
-                     if(link.getAttribute('href').includes(current)) {
-                         link.classList.add('active');
-                     }
-                 });
-             });
-        });
-        
-        // Modal Handling
-        const modal = document.getElementById('projectModal');
-        const modalContent = document.getElementById('modal-content');
-        
-        function openModal(projectId) {
-            const projects = {
-                'design1': {
-                    title: 'E-commerce UI Kit',
-                    image: 'https://static.vecteezy.com/system/resources/previews/004/946/889/original/e-commerce-concept-onboarding-screens-for-mobile-app-templates-customers-shopping-and-paying-at-website-of-store-ui-ux-gui-user-interface-kit-with-people-scenes-for-web-design-illustration-vector.jpg',
-                    description: 'Complete Figma design system for e-commerce applications including 50+ components and 10 page templates. Created with a mobile-first approach and accessibility in mind.',
-                    tech: '<strong>Tools Used:</strong> Figma, Adobe Illustrator, Photoshop',
-                    link: 'https://www.figma.com/design/J28yayorwVugrSM1m9rbrE/Untitled?node-id=0-1&t=BWyZtXo8UKjQ2YxP-1'
-                },
-                'design2': {
-                    title: 'Brand Identity Package',
-                    image: 'https://static.vecteezy.com/system/resources/previews/016/386/791/original/brand-identity-design-for-office-stationery-with-black-and-red-shapes-corporate-business-identity-template-bundle-with-creative-branding-shapes-business-promotional-stationery-design-for-branding-vector.jpg',
-                    description: 'Complete branding package including logo design, color palette, typography system, and brand guidelines. Developed for a tech startup focusing on clean, modern aesthetics.',
-                    tech: '<strong>Tools Used:</strong> Adobe Illustrator, Photoshop, InDesign',
-                    link: '#'
-                },
-                'design3': {
-                    title: 'Fitness Mobile App',
-                    image: 'https://cdn.dribbble.com/users/5261465/screenshots/14133459/media/e8a80d1cee14f0cde48a75d63489bea2.jpg',
-                    description: 'UI/UX design for a fitness tracking mobile application with workout plans, nutrition tracking, and progress analytics. Designed with a focus on user motivation and engagement.',
-                    tech: '<strong>Tools Used:</strong> Figma, Adobe XD, Illustrator',
-                    link: '#'
+            // Mobile Menu
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            mobileMenu.addEventListener('click', (e) => {
+                if(e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+                     mobileMenu.classList.add('hidden');
                 }
-            };
-            
-            const project = projects[projectId];
-            document.getElementById('modalTitle').textContent = project.title;
-            document.getElementById('modalImage').src = project.image;
-            document.getElementById('modalDescription').textContent = project.description;
-            document.getElementById('modalTechStack').innerHTML = project.tech;
-            document.getElementById('modalLink').href = project.link;
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => {
-              modalContent.classList.remove('scale-95', 'opacity-0');
-            }, 50);
-        }
-        
-        function closeModal() {
-            modalContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-              modal.classList.add('hidden');
-              modal.classList.remove('flex');
-              document.body.style.overflow = 'auto';
-            }, 300);
-        }
-        
-        // Close modal on outside click or escape key
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+            });
 
+            // Initial page load
+            const initialPage = window.location.hash ? window.location.hash.substring(1) : 'home';
+            showPage(initialPage);
+        });
     </script>
 </body>
 </html>
