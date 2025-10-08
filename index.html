@@ -1,237 +1,390 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sachchidanand Jha | Software Engineer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-dark: #121212;
-            --bg-light: #f9f9f9;
-            --text-dark: #ffffff;
-            --text-light: #000000;
-            --card-dark: #1e1e1e;
-            --card-light: #ffffff;
-            --primary-accent: #007aff;
-            --border-dark: #333333;
-            --border-light: #e5e5e5;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sachchidanand Jha | Software Engineer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js for subtle 3D/particle background -->
+  <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+  <!-- Fonts: Apple-system stack + Inter fallback -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        [data-theme="dark"] {
-            --bg-color: var(--bg-dark);
-            --text-color: var(--text-dark);
-            --card-bg: var(--card-dark);
-            --border-color: var(--border-dark);
-        }
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        [data-theme="light"] {
-            --bg-color: var(--bg-light);
-            --text-color: var(--text-light);
-            --card-bg: var(--card-light);
-            --border-color: var(--border-light);
-        }
+  <meta name="description" content="Sachchidanand Jha — B.Tech CSE 2025. Full-stack developer (MERN), Java/Python, system design & ML enthusiast. Based in NCR. Open to internships & fresher roles." />
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
+  <style>
+    :root{
+      --bg-dark: #0b0b0c;
+      --bg-card: rgba(255,255,255,0.02);
+      --glass: rgba(255,255,255,0.03);
+      --accent: #007aff;
+      --muted: rgba(255,255,255,0.65);
+    }
 
-        .nav-link {
-            transition: color 0.3s;
-            position: relative;
-        }
-        .nav-link.active {
-            color: var(--primary-accent);
-        }
+    html,body{height:100%;}
+    body{
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Inter", system-ui, Helvetica, Arial, sans-serif;
+      background: linear-gradient(180deg,#071018 0%, #0b0b0c 100%);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        [data-theme="dark"] .card:hover {
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
+    /* Header blur + glass effect */
+    header{backdrop-filter: blur(8px); background: linear-gradient(180deg, rgba(10,10,10,0.6), rgba(10,10,10,0.35)); border-bottom: 1px solid rgba(255,255,255,0.03)}
 
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
-    </style>
+    /* Card look */
+    .card{background: var(--glass); border: 1px solid rgba(255,255,255,0.04);}
+
+    /* Project image placeholder */
+    .proj-thumb{height:160px; object-fit:cover; width:100%; border-radius:8px}
+
+    /* small nice animations */
+    .fade-up{transform:translateY(8px); opacity:0; animation:fadeUp .6s ease forwards}
+    @keyframes fadeUp{to{transform:none; opacity:1}}
+
+    /* three.js canvas layering */
+    #three-bg{position:fixed; inset:0; z-index:0; pointer-events:none}
+    main{position:relative; z-index:2}
+
+    /* responsive tweaks */
+    @media (max-width:768px){
+      .proj-thumb{height:120px}
+    }
+
+    /* accessible focus */
+    a:focus{outline:2px dashed var(--accent); outline-offset:3px}
+  </style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-opacity-70" style="background-color: rgba(30, 30, 30, 0.7);">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold page-link">Sachchidanand Jha</a>
-            <nav class="hidden md:flex space-x-8 items-center">
-                <a href="#home" class="nav-link page-link active">Home</a>
-                <a href="#about" class="nav-link page-link">About</a>
-                <a href="#projects" class="nav-link page-link">Projects</a>
-                <a href="#contact" class="nav-link page-link">Contact</a>
-                <button id="theme-toggle" class="text-xl p-2 rounded-full focus:outline-none">
-                    <i class="fas fa-sun"></i>
-                </button>
-            </nav>
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-2xl"><i class="fas fa-bars"></i></button>
+  <!-- Three.js animated background canvas -->
+  <canvas id="three-bg"></canvas>
+
+  <header class="fixed top-0 left-0 right-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="#home" class="text-2xl font-semibold tracking-tight">Sachchidanand Jha</a>
+      <nav class="hidden md:flex space-x-8 items-center">
+        <a href="#home" class="nav-link page-link active">Home</a>
+        <a href="#about" class="nav-link page-link">About</a>
+        <a href="#projects" class="nav-link page-link">Projects</a>
+        <a href="#experience" class="nav-link page-link">Experience</a>
+        <a href="#contact" class="nav-link page-link">Contact</a>
+        <a href="Sachchidanand_Jha_Resume.pdf" download class="ml-2 px-4 py-2 border border-white/10 rounded-lg text-sm">Download CV</a>
+      </nav>
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-2xl"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden">
+      <a href="#home" class="block text-center py-3 text-lg page-link">Home</a>
+      <a href="#about" class="block text-center py-3 text-lg page-link">About</a>
+      <a href="#projects" class="block text-center py-3 text-lg page-link">Projects</a>
+      <a href="#experience" class="block text-center py-3 text-lg page-link">Experience</a>
+      <a href="#contact" class="block text-center py-3 text-lg page-link">Contact</a>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6 pt-28">
+
+    <!-- Hero -->
+    <section id="home" class="min-h-[68vh] flex items-center">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="fade-up">
+          <p class="text-sm uppercase text-blue-400 font-medium mb-3">Hi, I'm</p>
+          <h1 class="text-4xl md:text-6xl font-bold leading-tight">Sachchidanand Jha<br/><span class="text-blue-400">Software Engineer & Full‑Stack Developer</span></h1>
+          <p class="mt-6 text-lg text-gray-200 max-w-xl">B.Tech (CSE) graduate — MERN stack, Java, Python. I build scalable web apps, distributed systems, and data‑driven ML tools. Open to fresher roles & internships (remote / Noida / Gurgaon / NCR).</p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#projects" class="inline-flex items-center gap-2 bg-blue-600 px-5 py-3 rounded-lg shadow-lg">View Projects <i class="fas fa-chevron-right text-sm"></i></a>
+            <a href="Sachchidanand_Jha_Resume.pdf" download class="inline-flex items-center gap-2 border border-white/10 px-5 py-3 rounded-lg">Download CV</a>
+            <a href="mailto:Sachchidanandjha1607@gmail.com" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-white/10">Say Hello</a>
+          </div>
+
+          <div class="mt-8 flex items-center gap-4 text-sm text-muted">
+            <div class="flex items-center gap-3">
+              <i class="fab fa-linkedin text-2xl"></i>
+              <a href="https://www.linkedin.com/in/sachchidanand-jha-b8b3a3250/" target="_blank">LinkedIn</a>
             </div>
+            <div class="flex items-center gap-3">
+              <i class="fab fa-github text-2xl"></i>
+              <a href="https://github.com/Sachchidanandj16" target="_blank">GitHub</a>
+            </div>
+          </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden">
-            <a href="#home" class="block text-center py-3 text-lg page-link">Home</a>
-            <a href="#about" class="block text-center py-3 text-lg page-link">About</a>
-            <a href="#projects" class="block text-center py-3 text-lg page-link">Projects</a>
-            <a href="#contact" class="block text-center py-3 text-lg page-link">Contact</a>
-            <button id="mobile-theme-toggle" class="w-full py-3 text-xl"><i class="fas fa-sun"></i></button>
+
+        <div class="fade-up">
+          <!-- Profile card -->
+          <div class="card p-6 rounded-2xl max-w-md mx-auto">
+            <div class="flex items-center gap-4">
+              <img src="20241008_141834.jpg" alt="Sachchidanand" class="w-24 h-24 rounded-full object-cover">
+              <div>
+                <h3 class="text-xl font-semibold">Sachchidanand Jha</h3>
+                <p class="text-sm text-muted">B.Tech Computer Science (2025) • Noida / NCR • Open to remote</p>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <p class="text-sm">Tech highlights</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="px-3 py-1 border rounded-full text-sm">JavaScript</span>
+                <span class="px-3 py-1 border rounded-full text-sm">React</span>
+                <span class="px-3 py-1 border rounded-full text-sm">Node.js</span>
+                <span class="px-3 py-1 border rounded-full text-sm">MongoDB</span>
+                <span class="px-3 py-1 border rounded-full text-sm">Python</span>
+                <span class="px-3 py-1 border rounded-full text-sm">Docker</span>
+              </div>
+
+              <div class="mt-4 text-sm">
+                <p class="font-medium">About</p>
+                <p class="text-sm text-muted mt-2">I solve algorithmic problems, design systems, and build full‑stack products. Interested in backend, distributed systems, and ML. Actively applying to junior SDE / data analyst / full‑stack roles.</p>
+              </div>
+
+            </div>
+          </div>
         </div>
-    </header>
+      </div>
+    </section>
 
-    <main class="container mx-auto px-6 pt-24">
+    <!-- About -->
+    <section id="about" class="py-16">
+      <h2 class="text-3xl font-bold mb-6">About Me</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card p-6 rounded-2xl">
+          <h3 class="font-semibold mb-3">Core Strengths</h3>
+          <ul class="list-disc pl-5 space-y-2 text-sm text-muted">
+            <li>Full‑stack development (React + Node.js + MongoDB)</li>
+            <li>Strong fundamentals in Data Structures & Algorithms</li>
+            <li>System design basics & distributed systems exposure</li>
+            <li>Data analysis & ML prototyping (Python, Pandas, scikit‑learn)</li>
+            <li>Containerization & basic DevOps (Docker)</li>
+          </ul>
+        </div>
 
-        <!-- Home Page -->
-        <section id="home" class="page active min-h-screen flex flex-col justify-center">
-            <div class="text-center">
-                <h1 class="text-5xl md:text-7xl font-bold mb-4">Software Engineer</h1>
-                <p class="text-xl md:text-2xl mb-8">Crafting elegant solutions to complex problems.</p>
-                <div class="flex justify-center space-x-4">
-                    <a href="#projects" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg page-link">View My Work</a>
-                    <a href="Sachchidanand_Jha_Resume.pdf" download="Sachchidanand_Jha_Resume.pdf" class="border-2 border-blue-600 text-blue-600 font-semibold py-3 px-6 rounded-lg">Download CV</a>
-                </div>
+        <div class="card p-6 rounded-2xl md:col-span-2">
+          <h3 class="font-semibold mb-3">Skills & Tools</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm font-medium">Languages</p>
+              <div class="mt-2 text-sm text-muted">JavaScript, TypeScript, Java, Python, SQL</div>
             </div>
-        </section>
-
-        <!-- About Page -->
-        <section id="about" class="page min-h-screen py-20">
-            <h2 class="text-4xl font-bold text-center mb-12">About Me</h2>
-            <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center">
-                <div class="md:w-1/3 mb-8 md:mb-0">
-                    <img src="20241008_141834.jpg" alt="Sachchidanand Jha" class="rounded-full w-48 h-48 mx-auto">
-                </div>
-                <div class="md:w-2/3 md:pl-12">
-                    <p class="text-lg mb-4">I am a B.Tech Computer Science student graduating in 2025, with a passion for building high-impact software. My expertise lies in full-stack development with the MERN stack, alongside a strong command of Java and Python. I thrive on solving complex algorithmic challenges and have a keen interest in system design and machine learning.</p>
-                    <p class="text-lg">My project portfolio reflects my ability to architect and develop scalable, real-world applications. I am actively seeking challenging internship opportunities where I can contribute to meaningful projects and grow as a software engineer.</p>
-                </div>
+            <div>
+              <p class="text-sm font-medium">Frameworks & Libraries</p>
+              <div class="mt-2 text-sm text-muted">React, Express, Flask, Tailwind, Three.js</div>
             </div>
-        </section>
-
-        <!-- Projects Page -->
-        <section id="projects" class="page min-h-screen py-20">
-            <h2 class="text-4xl font-bold text-center mb-12">Projects</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-2xl font-bold mb-2">Distributed Cloud Storage System</h3>
-                    <p class="mb-4">A scalable, fault-tolerant storage system inspired by Dropbox, built with Node.js and gRPC. Features include file chunking, replication, and a load balancer for efficient data distribution.</p>
-                    <p class="font-semibold">Tech: Node.js, gRPC, MongoDB, Docker</p>
-                </div>
-                <!-- Project 2 -->
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-2xl font-bold mb-2">Real-Time Collaborative Code Editor</h3>
-                    <p class="mb-4">A web-based code editor allowing multiple users to code simultaneously. Implemented using WebSockets for real-time data synchronization and operational transforms to handle concurrent edits.</p>
-                    <p class="font-semibold">Tech: React, Node.js, WebSockets, Monaco Editor</p>
-                </div>
-                <!-- Project 3 -->
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-2xl font-bold mb-2">ML-Powered Recommendation Engine</h3>
-                    <p class="mb-4">A content recommendation engine for an e-commerce platform, developed using collaborative filtering algorithms in Python. Deployed as a microservice with a Flask API.</p>
-                    <p class="font-semibold">Tech: Python, Pandas, Scikit-learn, Flask, Docker</p>
-                </div>
+            <div>
+              <p class="text-sm font-medium">Databases</p>
+              <div class="mt-2 text-sm text-muted">MongoDB, PostgreSQL</div>
             </div>
-        </section>
-
-        <!-- Contact Page -->
-        <section id="contact" class="page min-h-screen py-20">
-            <h2 class="text-4xl font-bold text-center mb-12">Get In Touch</h2>
-            <div class="max-w-xl mx-auto text-center">
-                <p class="text-lg mb-8">I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out to me.</p>
-                <a href="mailto:Sachchidanandjha1607@gmail.com" class="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg">Say Hello</a>
-                <div class="mt-12 flex justify-center space-x-6">
-                    <a href="https://www.linkedin.com/in/sachchidanand-jha-b8b3a3250/" target="_blank" class="text-3xl"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/Sachchidanandj16" target="_blank" class="text-3xl"><i class="fab fa-github"></i></a>
-                </div>
+            <div>
+              <p class="text-sm font-medium">Tools</p>
+              <div class="mt-2 text-sm text-muted">Git, Docker, Postman, VS Code, Linux</div>
             </div>
-        </section>
+          </div>
 
-    </main>
+          <div class="mt-6">
+            <p class="text-sm font-medium">Learning Goals</p>
+            <div class="mt-2 text-sm text-muted">Improving system design, production ML deployment, and cloud fundamentals (AWS/GCP).</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const pageLinks = document.querySelectorAll('.page-link');
-            const pages = document.querySelectorAll('.page');
-            const navLinks = document.querySelectorAll('nav .page-link');
+    <!-- Projects -->
+    <section id="projects" class="py-16">
+      <h2 class="text-3xl font-bold mb-6">Selected Projects</h2>
+      <p class="text-sm text-muted mb-6">Clickable previews — click any project to view details and tech used.</p>
 
-            function showPage(pageId) {
-                pages.forEach(page => {
-                    page.classList.toggle('active', page.id === pageId);
-                });
-                navLinks.forEach(link => {
-                    link.classList.toggle('active', link.hash === `#${pageId}`);
-                });
-                window.scrollTo(0, 0);
-            }
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Project cards - maintain content provided but expand -->
+        <div class="card p-4 rounded-2xl" tabindex="0">
+          <img src="/project-1.png" alt="Distributed Cloud Storage" class="proj-thumb mb-4 bg-gradient-to-br from-slate-700 to-slate-900">
+          <h3 class="font-semibold">Distributed Cloud Storage System</h3>
+          <p class="text-sm text-muted mt-2">File chunking, replication & custom load balancer. Built with Node.js, gRPC and Docker.</p>
+          <p class="mt-3 text-xs font-medium">Tech: Node.js • gRPC • MongoDB • Docker</p>
+          <div class="mt-4 flex justify-between items-center">
+            <a href="#" class="text-sm border px-3 py-2 rounded-lg">View Repo</a>
+            <a href="#" class="text-sm border px-3 py-2 rounded-lg">Demo</a>
+          </div>
+        </div>
 
-            pageLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const pageId = link.getAttribute('href').substring(1);
-                    showPage(pageId);
-                });
-            });
+        <div class="card p-4 rounded-2xl" tabindex="0">
+          <img src="/project-2.png" alt="Collaborative Editor" class="proj-thumb mb-4 bg-gradient-to-br from-slate-700 to-slate-900">
+          <h3 class="font-semibold">Real-Time Collaborative Code Editor</h3>
+          <p class="text-sm text-muted mt-2">Operational transforms and WebSockets for real-time collaboration. Monaco Editor integration.</p>
+          <p class="mt-3 text-xs font-medium">Tech: React • WebSockets • Node.js • Monaco</p>
+          <div class="mt-4 flex justify-between items-center">
+            <a href="#" class="text-sm border px-3 py-2 rounded-lg">View Repo</a>
+            <a href="#" class="text-sm border px-3 py-2 rounded-lg">Demo</a>
+          </div>
+        </div>
 
-            // Theme Toggle
-            const themeToggle = document.getElementById('theme-toggle');
-            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
-            const sunIcon = '<i class="fas fa-sun"></i>';
-            const moonIcon = '<i class="fas fa-moon"></i>';
+        <div class="card p-4 rounded-2xl" tabindex="0">
+          <img src="/project-3.png" alt="Recommendation Engine" class="proj-thumb mb-4 bg-gradient-to-br from-slate-700 to-slate-900">
+          <h3 class="font-semibold">ML-Powered Recommendation Engine</h3>
+          <p class="text-sm text-muted mt-2">Collaborative filtering with Flask microservice; containerized for easy deployment.</p>
+          <p class="mt-3 text-xs font-medium">Tech: Python • Pandas • scikit-learn • Flask • Docker</p>
+          <div class="mt-4 flex justify-between items-center">
+            <a href="#" class="text-sm border px-3 py-2 rounded-lg">View Repo</a>
+            <a href="#" class="text-sm border px-3 py-2 rounded-lg">Demo</a>
+          </div>
+        </div>
 
-            const setTheme = (theme) => {
-                document.body.dataset.theme = theme;
-                localStorage.setItem('theme', theme);
-                const icon = theme === 'dark' ? sunIcon : moonIcon;
-                themeToggle.innerHTML = icon;
-                mobileThemeToggle.innerHTML = icon;
-            };
+      </div>
 
-            const toggleTheme = () => {
-                const newTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
-                setTheme(newTheme);
-            };
-            
-            themeToggle.addEventListener('click', toggleTheme);
-            mobileThemeToggle.addEventListener('click', toggleTheme);
+      <div class="mt-8 text-center">
+        <a href="#contact" class="px-6 py-3 rounded-lg border">Want to see more? Get in touch.</a>
+      </div>
+    </section>
 
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            setTheme(savedTheme);
+    <!-- Experience / Timeline -->
+    <section id="experience" class="py-16">
+      <h2 class="text-3xl font-bold mb-6">Experience & Education</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card p-6 rounded-2xl">
+          <h3 class="font-semibold mb-4">Education</h3>
+          <div class="text-sm text-muted">
+            <p class="mb-2"><strong>B.Tech — Computer Science</strong> • GLA University, Mathura • Graduated June 2025</p>
+            <p class="mb-2"><strong>Relevant coursework:</strong> Data Structures, Algorithms, Operating Systems, DBMS, Computer Networks, ML</p>
+          </div>
+        </div>
 
-            // Mobile Menu
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            mobileMenu.addEventListener('click', (e) => {
-                if(e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-                     mobileMenu.classList.add('hidden');
-                }
-            });
+        <div class="card p-6 rounded-2xl">
+          <h3 class="font-semibold mb-4">Internships & Roles</h3>
+          <ul class="list-disc pl-5 text-sm text-muted">
+            <li><strong>Open to internships & jr roles</strong> — actively applying for SDE, Full‑stack and Data Analyst roles (remote / Noida / Gurgaon / NCR).</li>
+            <li><strong>Project-based contributions:</strong> multiple self-led projects covering backend, realtime systems, and ML microservices.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-            // Initial page load
-            const initialPage = window.location.hash ? window.location.hash.substring(1) : 'home';
-            showPage(initialPage);
+    <!-- Contact -->
+    <section id="contact" class="py-16">
+      <h2 class="text-3xl font-bold mb-6">Contact</h2>
+      <div class="grid md:grid-cols-2 gap-6 items-start">
+        <div class="card p-6 rounded-2xl">
+          <h3 class="font-semibold">Get in touch</h3>
+          <p class="text-sm text-muted mt-2">I'm open to interviews, internships and full‑time fresher roles. Preferred locations: Remote / Noida / Gurgaon / NCR.</p>
+          <div class="mt-4">
+            <p class="text-sm font-medium">Email</p>
+            <a href="mailto:Sachchidanandjha1607@gmail.com" class="block mt-2">Sachchidanandjha1607@gmail.com</a>
+
+            <p class="text-sm font-medium mt-4">LinkedIn</p>
+            <a href="https://www.linkedin.com/in/sachchidanand-jha-b8b3a3250/" target="_blank" class="block mt-2">View profile</a>
+          </div>
+        </div>
+
+        <form class="card p-6 rounded-2xl" action="mailto:Sachchidanandjha1607@gmail.com" method="post" enctype="text/plain">
+          <label class="block text-sm font-medium">Your name</label>
+          <input required name="Name" class="mt-2 w-full rounded-md p-3 bg-transparent border border-white/6" placeholder="Your full name">
+
+          <label class="block text-sm font-medium mt-4">Email</label>
+          <input required name="Email" type="email" class="mt-2 w-full rounded-md p-3 bg-transparent border border-white/6" placeholder="your@email.com">
+
+          <label class="block text-sm font-medium mt-4">Message</label>
+          <textarea required name="Message" rows="5" class="mt-2 w-full rounded-md p-3 bg-transparent border border-white/6" placeholder="Hi Sachchidanand..."></textarea>
+
+          <div class="mt-4 flex justify-between items-center">
+            <button type="submit" class="px-5 py-3 rounded-lg bg-blue-600">Send</button>
+            <a href="#" id="copyEmail" class="text-sm">Copy email</a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer class="py-8 text-center text-sm text-muted">
+      <div class="container">
+        <p>© 2025 Sachchidanand Jha — Built with ❤️ • Available for internships & junior roles (Remote / Noida / Gurgaon / NCR)</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Basic page navigation behavior (single page feel)
+    document.addEventListener('DOMContentLoaded', () => {
+      const pageLinks = document.querySelectorAll('.page-link');
+      const navLinks = document.querySelectorAll('nav .page-link');
+
+      function showPage(pageId) {
+        // smooth scroll to section
+        const el = document.getElementById(pageId);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+
+      pageLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const pageId = link.getAttribute('href').substring(1);
+          showPage(pageId);
         });
-    </script>
+      });
+
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+      // Copy email button
+      document.getElementById('copyEmail').addEventListener('click',(e)=>{e.preventDefault();navigator.clipboard.writeText('Sachchidanandjha1607@gmail.com'); alert('Email copied to clipboard');});
+
+      // small intersection observer to animate
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('fade-up'); });
+      },{threshold:0.12});
+      document.querySelectorAll('section, .card').forEach(n=>obs.observe(n));
+    });
+
+    // ======= Three.js subtle background (particles) ======
+    (function initThreeBg(){
+      const canvas = document.getElementById('three-bg');
+      if(!canvas) return;
+      const renderer = new THREE.WebGLRenderer({canvas: canvas, alpha:true});
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      renderer.setPixelRatio(dpr);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
+      camera.position.z = 10;
+
+      const particles = new THREE.BufferGeometry();
+      const count = 800;
+      const positions = new Float32Array(count * 3);
+      for(let i=0;i<count*3;i+=3){
+        positions[i] = (Math.random()-0.5)*40;   // x
+        positions[i+1] = (Math.random()-0.5)*40; // y
+        positions[i+2] = (Math.random()-0.5)*20; // z
+      }
+      particles.setAttribute('position', new THREE.BufferAttribute(positions,3));
+      const mat = new THREE.PointsMaterial({ size: 0.06, transparent:true, opacity:0.6 });
+      const points = new THREE.Points(particles, mat);
+      scene.add(points);
+
+      function resize(){
+        const w = window.innerWidth; const h = window.innerHeight;
+        renderer.setSize(w,h);
+        camera.aspect = w/h; camera.updateProjectionMatrix();
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      let t = 0;
+      function animate(){
+        t += 0.003;
+        points.rotation.y = t*0.2;
+        points.rotation.x = Math.sin(t*0.4)*0.03;
+        // slow vertical drift
+        points.position.y = Math.sin(t*0.5)*0.5;
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+  </script>
 </body>
 </html>
